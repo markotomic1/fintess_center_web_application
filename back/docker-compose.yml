@@ -1,0 +1,49 @@
+version: "1"
+
+services:
+  postgres-database:
+    container_name: postgres-db
+    image: postgres
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+    restart: always
+    networks:
+      - my-network
+    volumes:
+      - postgres-data:/data/db
+    environment:
+      - POSTGRES_HOST=127.0.0.1
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin123
+      - POSTGRES_DB=fitness-db
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    networks:
+      - my-network
+    volumes:
+      - ./src:/usr/app/src
+      - ./nodemon.json:/usr/app/nodemon.json
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DATABASE_URL=postgresql://admin:admin123@postgres-db:5432/fitness-db?schema=public
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres-database
+    command: npm run dev
+
+volumes:
+  postgres-data:
+    driver: local
+networks:
+  my-network:
