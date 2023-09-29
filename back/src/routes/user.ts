@@ -1,5 +1,7 @@
+import { auth } from "../middlewares/auth";
 import {
   changePassword,
+  getLoggedInUser,
   getUser,
   loginUser,
   registerUser,
@@ -10,7 +12,8 @@ const router = express.Router();
 
 router.post("/login", loginUser);
 router.post("/register", registerUser);
-router.patch("/changePassword", changePassword);
-router.get("/getUser/:id", getUser);
+router.patch("/changePassword", auth, changePassword);
+router.get("/getUser/:id", auth, getUser);
+router.get("/me", auth, getLoggedInUser);
 
 export default router;
