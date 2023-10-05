@@ -1,0 +1,75 @@
+@import "../../styles/constants.scss";
+.navbar {
+  position: absolute;
+  width: calc(100% - 20px);
+  height: fit-content;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $navbar-back;
+  color: $navbar-text;
+
+  @media screen and (min-width: 768px) {
+    background-color: transparent;
+    height: 70px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+.navbar__mobile {
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+}
+.navbar__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar__link-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0px;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 0px;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+.link-list__item {
+  margin: 10px 0px;
+  @media screen and (min-width: 768px) {
+    margin-right: 50px;
+    font-size: 24px;
+  }
+}
+.list__logo {
+  display: none;
+  @media screen and (min-width: 768px) {
+    display: block;
+  }
+}
+.link-list__item:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+.logo:hover {
+  opacity: 1;
+  cursor: initial;
+}
+
+.hidden {
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+.visible {
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+}

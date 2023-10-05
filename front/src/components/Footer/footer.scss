@@ -1,0 +1,47 @@
+@import "../../styles/constants.scss";
+.footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: $footer-text;
+}
+.footer__top {
+  background-color: $footer-background;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  padding: 50px;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+.logo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.location {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.social {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.footer__bottom {
+  background-color: $copyright-backgorund;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
