@@ -1,11 +1,9 @@
-@import "../../styles//constants.scss";
+@import "../../../styles/constants.scss";
 
 .button {
   border: none;
   outline: none;
-  display: flex;
   padding: 2px 5px;
-  align-items: center;
   cursor: pointer;
 }
 .button:hover {
@@ -37,4 +35,11 @@
 }
 .home__button:hover {
   opacity: 0.9;
+}
+.submit__button {
+  padding: 5px 10px;
+  background-color: orange;
+  width: 200px;
+  border-radius: 3px;
+  margin: 0 auto;
 }

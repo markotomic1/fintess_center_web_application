@@ -1,0 +1,8 @@
+@import "../../styles/../../styles/constants.scss";
+.wrapper {
+  z-index: 99;
+  background-color: $form-back;
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: $box-shadow;
+}

@@ -1,14 +1,15 @@
 import Footer from "@/components/Footer/Footer";
-import Home from "@/components/Home/Home";
 import Navbar from "@/components/Navbar/Navbar";
 import React from "react";
 
-export default function Page() {
+const OtherLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <Navbar type='home' />
-      <Home />
+      <Navbar />
+      {children}
       <Footer />
     </>
   );
-}
+};
+
+export default OtherLayout;

@@ -1,6 +1,6 @@
 @import "../../styles/constants.scss";
 .navbar {
-  position: absolute;
+  z-index: 99;
   width: calc(100% - 20px);
   height: fit-content;
   padding: 20px 10px;
@@ -11,11 +11,16 @@
   color: $navbar-text;
 
   @media screen and (min-width: 768px) {
-    background-color: transparent;
     height: 70px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+  }
+}
+.navbar__home {
+  position: absolute;
+  @media screen and (min-width: 768px) {
+    background-color: transparent;
   }
 }
 .navbar__mobile {

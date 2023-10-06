@@ -1,0 +1,19 @@
+@import "../../styles/constants.scss";
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @media screen and (min-width: 768px) {
+    width: 220px;
+  }
+}
+.card__title {
+  text-align: center;
+  color: $about-text;
+  font-size: 24px;
+}
+.card__desc {
+  text-align: center;
+  font-size: 18px;
+}

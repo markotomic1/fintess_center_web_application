@@ -1,0 +1,64 @@
+@import "../../styles/constants.scss";
+.about {
+  display: flex;
+  flex-direction: column;
+}
+.aboutus__title__container {
+  display: flex;
+  flex-direction: column;
+}
+.aboutus__img {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+}
+.section__aboutus {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.section__aboutus__title {
+  box-sizing: border-box;
+  background-color: $about-back;
+  opacity: 0.7;
+  width: 100%;
+  font-size: 50px;
+  color: $about-text;
+  padding-left: 30px;
+}
+.section__aboutus__desc {
+  font-size: 20px;
+  padding: 20px 30px;
+}
+.section__mission {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+  gap: 20px;
+}
+.section__mission__title {
+  color: $about-text;
+  font-size: 20px;
+}
+.section__mission__desc {
+  font-size: 20px;
+}
+.section__card {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  padding: 20px 30px;
+}
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+.section__card__title {
+  font-size: 30px;
+  color: $about-text;
+}

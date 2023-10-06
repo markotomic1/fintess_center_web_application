@@ -1,0 +1,32 @@
+.form {
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+
+  @media screen and (min-width: 768px) {
+    width: 300px;
+  }
+}
+.form input {
+  width: 100%;
+  padding: 5px 2px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+  background-color: transparent;
+}
+.form__bottom {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+}
+.form__logo {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+.form__logo:hover {
+  cursor: pointer;
+}

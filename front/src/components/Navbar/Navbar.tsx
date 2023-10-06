@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import Button from "../Button/Button";
+import Button from "../UI/Button/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./navbar.scss";
 import logo from "../../../public/images/ignitefitLogo.png";
 import Link from "next/link";
-const Navbar = () => {
+const Navbar = (props: { type?: string }) => {
   const [showNavbar, setShowNavbar] = useState("hidden");
 
   const toggleNavbar = () => {
@@ -16,7 +16,7 @@ const Navbar = () => {
     });
   };
   return (
-    <nav className='navbar'>
+    <nav className={`navbar ${props.type === "home" ? "navbar__home" : ""}`}>
       <div className='navbar__mobile'>
         <Button onClick={toggleNavbar} class='navbar__button'>
           {showNavbar === "visible" ? <CloseIcon /> : <MenuIcon />}
@@ -31,7 +31,11 @@ const Navbar = () => {
             Home
           </Link>
         </li>
-        <li className='link-list__item'>About us</li>
+        <li className='link-list__item'>
+          <Link href='/about' className='link'>
+            About us
+          </Link>
+        </li>
         <li className='link-list__item'>Pricing</li>
         <li className='link-list__item'>Contact</li>
       </ul>

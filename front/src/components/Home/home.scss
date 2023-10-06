@@ -1,12 +1,7 @@
 .home {
   height: 100vh;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 99;
-}
-.home__background {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
 }
