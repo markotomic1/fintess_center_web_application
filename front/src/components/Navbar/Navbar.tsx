@@ -22,8 +22,9 @@ const Navbar = (props: { type?: string }) => {
           {showNavbar === "visible" ? <CloseIcon /> : <MenuIcon />}
         </Button>
       </div>
+
       <ul className={`navbar__link-list ${showNavbar}`}>
-        <li className='link-list__item list__logo logo'>
+        <li className='list__logo link-list__item'>
           <img src={logo.src} alt='IgniteFit Logo' className='logo__image' />
         </li>
         <li className='link-list__item'>

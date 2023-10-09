@@ -1,24 +1,15 @@
 @import "../../styles/constants.scss";
 .navbar {
   z-index: 99;
-  width: calc(100% - 20px);
-  height: fit-content;
-  padding: 20px 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background-color: $navbar-back;
-  color: $navbar-text;
-
-  @media screen and (min-width: 768px) {
-    height: 70px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
-.navbar__home {
   position: absolute;
+  top: 0;
+  width: 100%;
+  background-color: $navbar-back;
+  padding: 20px;
+  color: $navbar-text;
+  box-sizing: border-box;
+  text-shadow: 5px 5px 10px rgba(0, 0, 0, 1);
+
   @media screen and (min-width: 768px) {
     background-color: transparent;
   }
@@ -28,53 +19,63 @@
     display: none;
   }
 }
-.navbar__top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 .navbar__link-list {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
+  padding: 0;
+  text-align: center;
   list-style: none;
-  padding: 0px;
-
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out;
   @media screen and (min-width: 768px) {
-    margin-top: 0px;
+    margin-bottom: 0;
+    display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 30px;
   }
 }
-.link-list__item {
-  margin: 10px 0px;
+.navbar__link-list.hidden {
+  max-height: 0;
   @media screen and (min-width: 768px) {
-    margin-right: 50px;
-    font-size: 24px;
+    max-height: fit-content;
+    display: flex;
+    flex-direction: row;
   }
 }
+.navbar__link-list.visible {
+  max-height: 500px;
+}
+
+.link-list__item {
+  font-size: 24px;
+  margin-top: 50px;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 0;
+    font-size: 34px;
+  }
+}
+.link-list__item:last-child {
+  margin-bottom: 40px;
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 0;
+  }
+}
+
+.link-list__item:hover {
+  opacity: 0.7;
+}
+.link-list__item:active {
+  color: gray;
+}
+.list__logo:hover {
+  opacity: 1;
+}
+
 .list__logo {
   display: none;
   @media screen and (min-width: 768px) {
-    display: block;
-  }
-}
-.link-list__item:hover {
-  cursor: pointer;
-  opacity: 0.7;
-}
-.logo:hover {
-  opacity: 1;
-  cursor: initial;
-}
-
-.hidden {
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
-}
-.visible {
-  @media screen and (max-width: 768px) {
     display: block;
   }
 }
