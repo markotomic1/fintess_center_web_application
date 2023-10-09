@@ -36,7 +36,11 @@ const Navbar = (props: { type?: string }) => {
             About us
           </Link>
         </li>
-        <li className='link-list__item'>Pricing</li>
+        <li className='link-list__item'>
+          <Link className='link' href='/price'>
+            Pricing
+          </Link>
+        </li>
         <li className='link-list__item'>
           <Link href='/contact' className='link'>
             Contact

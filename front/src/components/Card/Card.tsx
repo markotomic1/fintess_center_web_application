@@ -2,12 +2,33 @@ import React from "react";
 import Wrapper from "../UI/Wrapper/Wrapper";
 import "./card.scss";
 
-const Card = (props: { title: string; description: string; key: string }) => {
+const Card = (props: {
+  title: string;
+  description?: string;
+  key: string;
+  type?: "plan" | undefined;
+  price?: string;
+  items?: string[];
+}) => {
   return (
     <Wrapper>
       <div className='card'>
-        <h3 className='card__title'>{props.title}</h3>
-        <p className='card__desc'>{props.description}</p>
+        <h2 className='card__title'>{props.title}</h2>
+        {props.price && (
+          <>
+            <h3 className='card__price'>{props.price} $</h3>
+            <hr className='line' />
+          </>
+        )}
+        {props.type !== "plan" ? (
+          <p className='card__description'>{props.description}</p>
+        ) : (
+          props.items?.map((item, i) => (
+            <p className='card__description' key={i}>
+              {item}
+            </p>
+          ))
+        )}
       </div>
     </Wrapper>
   );
