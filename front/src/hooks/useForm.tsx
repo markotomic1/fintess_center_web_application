@@ -1,15 +1,11 @@
-import React, { ChangeEvent, useState } from "react";
+import { useState } from "react";
 
-const useForm = (initialState: {
-  username: string;
-  password: string;
-  name?: string;
-  surname?: string;
-  email?: string;
-}) => {
-  const [formData, setFormData] = useState(initialState);
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+type FormState<T> = T;
+
+const useForm = <T,>(initialState: FormState<T> = {} as T) => {
+  const [formData, setFormData] = useState<FormState<T>>(initialState);
+  const handleInputChange = (name: keyof T, value: T[keyof T]) => {
+    setFormData({ ...formData, [name]: value });
   };
   const resetForm = () => {
     setFormData(initialState);

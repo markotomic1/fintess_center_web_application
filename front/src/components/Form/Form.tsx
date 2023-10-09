@@ -5,8 +5,16 @@ import Button from "../UI/Button/Button";
 import Link from "next/link";
 import logo from "../../../public/images/ignitefitLogoDark.png";
 import useForm from "@/hooks/useForm";
+
+interface LoginForm {
+  username: string;
+  password: string;
+  email?: string;
+  name?: string;
+  surname?: string;
+}
 const Form = (props: { type: "login" | "register" }) => {
-  const { formData, handleInputChange, resetForm } = useForm(
+  const { formData, handleInputChange, resetForm } = useForm<LoginForm>(
     props.type === "login"
       ? { username: "", password: "" }
       : { username: "", password: "", name: "", surname: "", email: "" }
@@ -31,15 +39,15 @@ const Form = (props: { type: "login" | "register" }) => {
               type='text'
               id='name'
               name='name'
-              onChange={handleInputChange}
+              onChange={(e) => handleInputChange("name", e.target.value)}
               value={formData.name}
             />
             <label htmlFor='surname'>Surname: </label>
             <input
               type='text'
               id='surname'
+              onChange={(e) => handleInputChange("surname", e.target.value)}
               name='surname'
-              onChange={handleInputChange}
               value={formData.surname}
             />
             <label htmlFor='email'>Email: </label>
@@ -47,8 +55,8 @@ const Form = (props: { type: "login" | "register" }) => {
               type='text'
               id='email'
               name='email'
-              onChange={handleInputChange}
               value={formData.email}
+              onChange={(e) => handleInputChange("email", e.target.value)}
             />
           </>
         )}
@@ -57,7 +65,7 @@ const Form = (props: { type: "login" | "register" }) => {
           type='text'
           id='username'
           name='username'
-          onChange={handleInputChange}
+          onChange={(e) => handleInputChange("username", e.target.value)}
           value={formData.username}
         />
         <label htmlFor='password'>Password: </label>
@@ -65,7 +73,7 @@ const Form = (props: { type: "login" | "register" }) => {
           type='password'
           id='password'
           name='password'
-          onChange={handleInputChange}
+          onChange={(e) => handleInputChange("password", e.target.value)}
           value={formData.password}
         />
         <Button type='submit' class='submit__button'>

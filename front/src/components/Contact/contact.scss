@@ -1,0 +1,71 @@
+@import "../../styles/constants.scss";
+.contact {
+  display: flex;
+  flex-direction: column;
+}
+.contact__image {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+.contact__title {
+  position: absolute;
+  top: 200px;
+  font-size: 50px;
+  padding-left: 40px;
+}
+.contact__top {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  @media screen and (min-width: 768px) {
+    height: 50vh;
+    flex-direction: row;
+  }
+}
+.map {
+  flex: 1;
+}
+.contact__location {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: orange;
+}
+.line {
+  width: 80%;
+  height: 1px;
+  border: none;
+  background-color: lightcyan;
+
+  @media screen and (min-width: 768px) {
+    width: 45%;
+  }
+}
+.location__title {
+  font-size: 28px;
+  color: $contact-text;
+}
+.location__details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.contact__bottom {
+  padding: 100px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  background-color: rgb(245, 244, 244);
+}
+.contactus__title {
+  font-size: 34px;
+  color: $contact-text;
+}

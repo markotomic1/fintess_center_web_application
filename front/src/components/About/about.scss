@@ -3,28 +3,10 @@
   display: flex;
   flex-direction: column;
 }
-.aboutus__title__container {
-  display: flex;
-  flex-direction: column;
-}
-.aboutus__img {
-  height: 250px;
-  width: 100%;
-  object-fit: cover;
-}
 .section__aboutus {
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-.section__aboutus__title {
-  box-sizing: border-box;
-  background-color: $about-back;
-  opacity: 0.7;
-  width: 100%;
-  font-size: 50px;
-  color: $about-text;
-  padding-left: 30px;
 }
 .section__aboutus__desc {
   font-size: 20px;

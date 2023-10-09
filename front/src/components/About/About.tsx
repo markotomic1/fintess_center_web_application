@@ -7,13 +7,13 @@ const About = () => {
   return (
     <div className='about'>
       <section className='section__aboutus'>
-        <div className='aboutus__title__container'>
+        <div className='header__container'>
           <img
             src={background.src}
             alt='about us background'
-            className='aboutus__img'
+            className='header__img'
           />
-          <h1 className='section__aboutus__title'>About us</h1>
+          <h1 className='header__title'>About us</h1>
         </div>
         <p className='section__aboutus__desc'>
           At Ignite Fit, we're not just a gym; we're a community of fitness

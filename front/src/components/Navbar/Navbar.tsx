@@ -37,7 +37,11 @@ const Navbar = (props: { type?: string }) => {
           </Link>
         </li>
         <li className='link-list__item'>Pricing</li>
-        <li className='link-list__item'>Contact</li>
+        <li className='link-list__item'>
+          <Link href='/contact' className='link'>
+            Contact
+          </Link>
+        </li>
       </ul>
     </nav>
   );
