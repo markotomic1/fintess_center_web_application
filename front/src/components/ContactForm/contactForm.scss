@@ -7,6 +7,11 @@
     width: 50%;
   }
 }
+.form__item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 .contactForm input {
   padding: 10px 5px;
   background-color: transparent;

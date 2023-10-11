@@ -15,6 +15,9 @@ const Navbar = (props: { type?: string }) => {
       else return "hidden";
     });
   };
+  const changeUrlHandler = () => {
+    setShowNavbar("hidden");
+  };
   return (
     <nav className={`navbar ${props.type === "home" ? "navbar__home" : ""}`}>
       <div className='navbar__mobile'>
@@ -28,22 +31,22 @@ const Navbar = (props: { type?: string }) => {
           <img src={logo.src} alt='IgniteFit Logo' className='logo__image' />
         </li>
         <li className='link-list__item'>
-          <Link href='/' className='link'>
+          <Link href='/' className='link' onClick={changeUrlHandler}>
             Home
           </Link>
         </li>
         <li className='link-list__item'>
-          <Link href='/about' className='link'>
+          <Link href='/about' className='link' onClick={changeUrlHandler}>
             About us
           </Link>
         </li>
         <li className='link-list__item'>
-          <Link className='link' href='/price'>
+          <Link className='link' href='/price' onClick={changeUrlHandler}>
             Pricing
           </Link>
         </li>
         <li className='link-list__item'>
-          <Link href='/contact' className='link'>
+          <Link href='/contact' className='link' onClick={changeUrlHandler}>
             Contact
           </Link>
         </li>

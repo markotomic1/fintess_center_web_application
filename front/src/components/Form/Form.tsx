@@ -14,11 +14,12 @@ interface LoginForm {
   surname?: string;
 }
 const Form = (props: { type: "login" | "register" }) => {
-  const { formData, handleInputChange, resetForm } = useForm<LoginForm>(
-    props.type === "login"
-      ? { username: "", password: "" }
-      : { username: "", password: "", name: "", surname: "", email: "" }
-  );
+  const { formData, handleInputChange, resetForm, blurHandler } =
+    useForm<LoginForm>(
+      props.type === "login"
+        ? { username: "", password: "" }
+        : { username: "", password: "", name: "", surname: "", email: "" }
+    );
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     console.log(formData);

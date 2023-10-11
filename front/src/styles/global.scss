@@ -42,3 +42,10 @@
   color: $about-text;
   padding-left: 30px;
 }
+.inputError {
+  border-color: red !important;
+  background-color: white !important;
+}
+.error__text {
+  color: red;
+}
