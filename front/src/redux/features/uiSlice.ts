@@ -24,7 +24,10 @@ const uiSlice = createSlice({
     removeError: (state, action: PayloadAction<string>) => {
       state.error = state.error.filter((error) => error?.id !== action.payload);
     },
+    removeErrors: (state) => {
+      state.error = [];
+    },
   },
 });
-export const { addError, removeError } = uiSlice.actions;
+export const { addError, removeError, removeErrors } = uiSlice.actions;
 export default uiSlice.reducer;

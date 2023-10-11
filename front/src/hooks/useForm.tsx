@@ -1,5 +1,6 @@
 import { addError, removeError } from "@/redux/features/uiSlice";
 import { useAppDispatch } from "@/redux/hooks";
+import { capitalizeFirstLetter } from "@/utils/stringUtils";
 import { useState } from "react";
 import validator from "validator";
 type FormState<T> = T;
@@ -33,6 +34,19 @@ const useForm = <T,>(initialState: FormState<T> = {} as T) => {
         addError({
           id: name.toString() + "Error",
           message: "Not valid Phone number!",
+        })
+      );
+    } else if (
+      ((name === "username" || name === "password") &&
+        value.trim().length < 6) ||
+      value.trim().length > 15
+    ) {
+      dispatch(
+        addError({
+          id: name.toString() + "Error",
+          message: `${capitalizeFirstLetter(
+            name.toString()
+          )} must be 6-15 chars!`,
         })
       );
     }

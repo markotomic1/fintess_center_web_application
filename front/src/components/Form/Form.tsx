@@ -1,10 +1,13 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import "./form.scss";
 import Button from "../UI/Button/Button";
 import Link from "next/link";
 import logo from "../../../public/images/ignitefitLogoDark.png";
 import useForm from "@/hooks/useForm";
+import { checkError } from "@/utils/checkErrors";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { removeErrors } from "@/redux/features/uiSlice";
 
 interface LoginForm {
   username: string;
@@ -20,11 +23,20 @@ const Form = (props: { type: "login" | "register" }) => {
         ? { username: "", password: "" }
         : { username: "", password: "", name: "", surname: "", email: "" }
     );
+  const { error } = useAppSelector((state) => state.ui);
+  const dispatch = useAppDispatch();
+  //remove old erros when page changes
+  useEffect(() => {
+    return () => {
+      dispatch(removeErrors());
+    };
+  }, [dispatch]);
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     console.log(formData);
     resetForm();
   };
+
   return (
     <>
       <div className='form__logo'>
@@ -35,48 +47,118 @@ const Form = (props: { type: "login" | "register" }) => {
       <form className='form' onSubmit={submitHandler}>
         {props.type === "register" && (
           <>
-            <label htmlFor='name'>Name: </label>
-            <input
-              type='text'
-              id='name'
-              name='name'
-              onChange={(e) => handleInputChange("name", e.target.value)}
-              value={formData.name}
-            />
-            <label htmlFor='surname'>Surname: </label>
-            <input
-              type='text'
-              id='surname'
-              onChange={(e) => handleInputChange("surname", e.target.value)}
-              name='surname'
-              value={formData.surname}
-            />
-            <label htmlFor='email'>Email: </label>
-            <input
-              type='text'
-              id='email'
-              name='email'
-              value={formData.email}
-              onChange={(e) => handleInputChange("email", e.target.value)}
-            />
+            <div className='form__item'>
+              <label htmlFor='name'>Name: </label>
+              <input
+                type='text'
+                id='name'
+                name='name'
+                onChange={(e) => handleInputChange("name", e.target.value)}
+                value={formData.name}
+                onBlur={(e) => blurHandler("name", e.target.value)}
+                className={`${
+                  checkError("nameError", error) ? "inputError" : ""
+                }`}
+              />
+              {checkError("nameError", error) && (
+                <span className='error__text'>
+                  {
+                    error.find((errorItem) => errorItem.id === "nameError")
+                      ?.message
+                  }
+                </span>
+              )}
+            </div>
+            <div className='form__item'>
+              <label htmlFor='surname'>Surname: </label>
+              <input
+                type='text'
+                id='surname'
+                onChange={(e) => handleInputChange("surname", e.target.value)}
+                name='surname'
+                value={formData.surname}
+                onBlur={(e) => blurHandler("surname", e.target.value)}
+                className={`${
+                  checkError("surnameError", error) ? "inputError" : ""
+                }`}
+              />
+              {checkError("surnameError", error) && (
+                <span className='error__text'>
+                  {
+                    error.find((errorItem) => errorItem.id === "surnameError")
+                      ?.message
+                  }
+                </span>
+              )}
+            </div>
+            <div className='form__item'>
+              <label htmlFor='email'>Email: </label>
+              <input
+                type='text'
+                id='email'
+                name='email'
+                value={formData.email}
+                onChange={(e) => handleInputChange("email", e.target.value)}
+                onBlur={(e) => blurHandler("email", e.target.value)}
+                className={`${
+                  checkError("emailError", error) ? "inputError" : ""
+                }`}
+              />
+              {checkError("emailError", error) && (
+                <span className='error__text'>
+                  {
+                    error.find((errorItem) => errorItem.id === "emailError")
+                      ?.message
+                  }
+                </span>
+              )}
+            </div>
           </>
         )}
-        <label htmlFor='username'>Username: </label>
-        <input
-          type='text'
-          id='username'
-          name='username'
-          onChange={(e) => handleInputChange("username", e.target.value)}
-          value={formData.username}
-        />
-        <label htmlFor='password'>Password: </label>
-        <input
-          type='password'
-          id='password'
-          name='password'
-          onChange={(e) => handleInputChange("password", e.target.value)}
-          value={formData.password}
-        />
+        <div className='form__item'>
+          <label htmlFor='username'>Username: </label>
+          <input
+            type='text'
+            id='username'
+            name='username'
+            onChange={(e) => handleInputChange("username", e.target.value)}
+            value={formData.username}
+            onBlur={(e) => blurHandler("username", e.target.value)}
+            className={`${
+              checkError("usernameError", error) ? "inputError" : ""
+            }`}
+          />
+          {checkError("usernameError", error) && (
+            <span className='error__text'>
+              {
+                error.find((errorItem) => errorItem.id === "usernameError")
+                  ?.message
+              }
+            </span>
+          )}
+        </div>
+        <div className='form__item'>
+          <label htmlFor='password'>Password: </label>
+          <input
+            type='password'
+            id='password'
+            name='password'
+            onChange={(e) => handleInputChange("password", e.target.value)}
+            value={formData.password}
+            onBlur={(e) => blurHandler("password", e.target.value)}
+            className={`${
+              checkError("passwordError", error) ? "inputError" : ""
+            }`}
+          />
+          {checkError("passwordError", error) && (
+            <span className='error__text'>
+              {
+                error.find((errorItem) => errorItem.id === "passwordError")
+                  ?.message
+              }
+            </span>
+          )}
+        </div>
         <Button type='submit' class='submit__button'>
           {props.type === "register" ? "Register" : "Login"}
         </Button>

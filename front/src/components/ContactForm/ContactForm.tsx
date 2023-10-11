@@ -1,9 +1,10 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect } from "react";
 import "./contactForm.scss";
 import Button from "../UI/Button/Button";
 import useForm from "@/hooks/useForm";
-import { useAppSelector } from "@/redux/hooks";
-
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { checkError } from "@/utils/checkErrors";
+import { removeErrors } from "@/redux/features/uiSlice";
 interface ContactForm {
   fullname: string;
   email: string;
@@ -19,20 +20,19 @@ const ContactForm = () => {
       description: "",
     });
   const { error } = useAppSelector((state) => state.ui);
+  const dispatch = useAppDispatch();
+
+  //remove old erros when change a page
+  useEffect(() => {
+    return () => {
+      dispatch(removeErrors());
+    };
+  }, [dispatch]);
+
+  //submit form
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
     console.log(formData);
-  };
-
-  const checkError = (errorClass: string): boolean => {
-    let value = false;
-    error.forEach((error) => {
-      if (error.id === errorClass) {
-        value = true;
-        return;
-      }
-    });
-    return value;
   };
 
   return (
@@ -46,9 +46,11 @@ const ContactForm = () => {
           onChange={(e) => handleInputChange("fullname", e.target.value)}
           value={formData.fullname}
           onBlur={(e) => blurHandler("fullname", e.target.value)}
-          className={`${checkError("fullnameError") ? "inputError" : ""}`}
+          className={`${
+            checkError("fullnameError", error) ? "inputError" : ""
+          }`}
         />
-        {checkError("fullnameError") && (
+        {checkError("fullnameError", error) && (
           <span className='error__text'>
             {
               error.find((errorItem) => errorItem.id === "fullnameError")
@@ -65,11 +67,11 @@ const ContactForm = () => {
           id='Email'
           onChange={(e) => handleInputChange("email", e.target.value)}
           onBlur={(e) => blurHandler("email", e.target.value)}
-          className={`${checkError("emailError") ? "inputError" : ""}`}
+          className={`${checkError("emailError", error) ? "inputError" : ""}`}
           value={formData.email}
           autoComplete='false'
         />
-        {checkError("emailError") && (
+        {checkError("emailError", error) && (
           <span className='error__text'>
             {error.find((errorItem) => errorItem.id === "emailError")?.message}
           </span>
@@ -83,11 +85,11 @@ const ContactForm = () => {
           id='phone'
           onChange={(e) => handleInputChange("phone", e.target.value)}
           onBlur={(e) => blurHandler("phone", e.target.value)}
-          className={`${checkError("phoneError") ? "inputError" : ""}`}
+          className={`${checkError("phoneError", error) ? "inputError" : ""}`}
           value={formData.phone}
           autoComplete='false'
         />
-        {checkError("phoneError") && (
+        {checkError("phoneError", error) && (
           <span className='error__text'>
             {error.find((errorItem) => errorItem.id === "phoneError")?.message}
           </span>
@@ -101,10 +103,12 @@ const ContactForm = () => {
           id='description'
           onChange={(e) => handleInputChange("description", e.target.value)}
           onBlur={(e) => blurHandler("description", e.target.value)}
-          className={`${checkError("descriptionError") ? "inputError" : ""}`}
+          className={`${
+            checkError("descriptionError", error) ? "inputError" : ""
+          }`}
           value={formData.description}
         />
-        {checkError("descriptionError") && (
+        {checkError("descriptionError", error) && (
           <span className='error__text'>
             {
               error.find((errorItem) => errorItem.id === "descriptionError")
