@@ -6,7 +6,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import "./navbar.scss";
 import logo from "../../../public/images/ignitefitLogo.png";
 import Link from "next/link";
-const Navbar = (props: { type?: string }) => {
+const Navbar = (props: {}) => {
   const [showNavbar, setShowNavbar] = useState("hidden");
 
   const toggleNavbar = () => {
@@ -19,7 +19,7 @@ const Navbar = (props: { type?: string }) => {
     setShowNavbar("hidden");
   };
   return (
-    <nav className={`navbar ${props.type === "home" ? "navbar__home" : ""}`}>
+    <nav className='navbar'>
       <div className='navbar__mobile'>
         <Button onClick={toggleNavbar} class='navbar__button'>
           {showNavbar === "visible" ? <CloseIcon /> : <MenuIcon />}

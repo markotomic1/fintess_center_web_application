@@ -1,9 +1,12 @@
 import express, { NextFunction, Request, Response } from "express";
 import userRoutes from "./routes/user";
+import mailRoutes from "./routes/mail";
+import cors from "cors";
 const app = express();
 
 //middlewares
 app.use(express.json());
+app.use(cors({ origin: "http://localhost:8080" }));
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to fitnes center API!");
@@ -12,6 +15,7 @@ app.get("/", (req: Request, res: Response) => {
 //routes
 
 app.use("/user", userRoutes);
+app.use("mail", mailRoutes);
 
 //error middleware
 

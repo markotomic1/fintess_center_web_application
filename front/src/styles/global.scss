@@ -48,3 +48,9 @@
 .error__text {
   color: red;
 }
+.error__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}

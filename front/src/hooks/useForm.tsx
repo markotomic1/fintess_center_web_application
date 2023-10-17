@@ -37,9 +37,8 @@ const useForm = <T,>(initialState: FormState<T> = {} as T) => {
         })
       );
     } else if (
-      ((name === "username" || name === "password") &&
-        value.trim().length < 6) ||
-      value.trim().length > 15
+      (name === "username" || name === "password") &&
+      (value.trim().length < 6 || value.trim().length > 15)
     ) {
       dispatch(
         addError({

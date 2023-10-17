@@ -3,6 +3,7 @@ import { prisma } from "../database/database";
 import bcrypt from "bcrypt";
 import validator from "validator";
 import { generateToken } from "../utils/jwtUtils";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 //get user by specified id
 
@@ -53,30 +54,37 @@ export const register = async (userData: {
   password: string;
   role: "ADMIN" | "USER" | "TRAINER";
 }) => {
-  if (!validator.isEmail(userData.email))
-    throw new CustomError("Invalid email address!", 400);
+  try {
+    if (!validator.isEmail(userData.email))
+      throw new CustomError("Invalid email address!", 400);
 
-  if (userData.password.trim().length < 6)
-    throw new CustomError("Password not long enough!", 400);
+    if (userData.password.trim().length < 6)
+      throw new CustomError("Password not long enough!", 400);
 
-  if (
-    !validator.isAlphanumeric(userData.username) ||
-    userData.username.trim().length < 6
-  )
-    throw new CustomError("Username not valid!", 400);
+    if (
+      !validator.isAlphanumeric(userData.username) ||
+      userData.username.trim().length < 6
+    )
+      throw new CustomError("Username not valid!", 400);
 
-  const hashedPassword = await bcrypt.hash(userData.password, 10);
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
 
-  const user = await prisma.user.create({
-    data: { ...userData, password: hashedPassword },
-  });
-  if (!user) throw new CustomError("Unable to register!", 400);
+    const user = await prisma.user.create({
+      data: { ...userData, password: hashedPassword },
+    });
+    if (!user) throw new CustomError("Unable to register!", 400);
 
-  const token = generateToken(userData.username);
+    const token = generateToken(userData.username);
 
-  const { id, password, ...returnData } = user;
+    const { id, password, ...returnData } = user;
 
-  return { returnData, token };
+    return { returnData, token };
+  } catch (error) {
+    if (error instanceof PrismaClientKnownRequestError) {
+      throw new CustomError("Unable to create user!", 400);
+    }
+    throw error;
+  }
 };
 
 //change user password

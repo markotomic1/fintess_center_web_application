@@ -6,7 +6,7 @@ import React from "react";
 export default function Page() {
   return (
     <>
-      <Navbar type='home' />
+      <Navbar />
       <Home />
       <Footer />
     </>

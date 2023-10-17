@@ -17,7 +17,7 @@ export const loginUser = async (
 
     const { returnData, token } = await login({ username, password });
 
-    res.json({ message: "Successfuly logged in!", token });
+    res.json({ message: "Successfuly logged in!", token, user: returnData });
   } catch (error) {
     next(error);
   }

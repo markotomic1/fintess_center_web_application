@@ -7,34 +7,37 @@ import logo from "../../../public/images/ignitefitLogoDark.png";
 import useForm from "@/hooks/useForm";
 import { checkError } from "@/utils/checkErrors";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { removeErrors } from "@/redux/features/uiSlice";
+import { addError, removeErrors } from "@/redux/features/uiSlice";
+import { User } from "../../utils/types";
+import { useRouter } from "next/navigation";
+import { loginUser, registerUser } from "@/redux/features/userSlice";
 
-interface LoginForm {
-  username: string;
-  password: string;
-  email?: string;
-  name?: string;
-  surname?: string;
-}
 const Form = (props: { type: "login" | "register" }) => {
-  const { formData, handleInputChange, resetForm, blurHandler } =
-    useForm<LoginForm>(
-      props.type === "login"
-        ? { username: "", password: "" }
-        : { username: "", password: "", name: "", surname: "", email: "" }
-    );
+  const { formData, handleInputChange, resetForm, blurHandler } = useForm<User>(
+    props.type === "login"
+      ? { username: "", password: "" }
+      : { username: "", password: "", name: "", surname: "", email: "" }
+  );
   const { error } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
+  const router = useRouter();
   //remove old erros when page changes
   useEffect(() => {
     return () => {
       dispatch(removeErrors());
     };
   }, [dispatch]);
-  const submitHandler = (e: React.FormEvent) => {
+  const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
-    resetForm();
+    try {
+      props.type === "register"
+        ? await dispatch(registerUser(formData)).unwrap()
+        : await dispatch(loginUser(formData)).unwrap();
+      resetForm();
+      router.push("/dashboard");
+    } catch (error: any) {
+      console.error(error);
+    }
   };
 
   return (
@@ -176,6 +179,17 @@ const Form = (props: { type: "login" | "register" }) => {
           </Link>
         </div>
       </form>
+      <div className='error__container'>
+        {error.map((error, i) => {
+          if (error.id === "registerError" || error.id === "loginError") {
+            return (
+              <span className='error__text' key={i}>
+                {error.message}
+              </span>
+            );
+          }
+        })}
+      </div>
     </>
   );
 };
