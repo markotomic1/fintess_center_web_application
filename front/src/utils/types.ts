@@ -23,3 +23,9 @@ export interface UserLogin {
   username: string;
   password: string;
 }
+export interface ContactData {
+  fullname: string;
+  email: string;
+  phone: string;
+  description: string;
+}

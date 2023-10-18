@@ -1,5 +1,11 @@
 import { axiosInstance } from "@/utils/axiosInstance";
-import { User, UserLogin, UserRegister, UserState } from "@/utils/types";
+import {
+  ContactData,
+  User,
+  UserLogin,
+  UserRegister,
+  UserState,
+} from "@/utils/types";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { addError, removeError } from "./uiSlice";
 
@@ -52,6 +58,23 @@ export const loginUser = createAsyncThunk(
     } catch (error: any) {
       thunkAPI.dispatch(
         addError({ id: "loginError", message: error.response.data })
+      );
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+//send email
+
+export const sendeEmail = createAsyncThunk(
+  "mail/send",
+  async (contactData: ContactData, thunkAPI) => {
+    try {
+      await axiosInstance.post("/mail/send", contactData);
+      thunkAPI.dispatch(removeError("mailError"));
+    } catch (error: any) {
+      thunkAPI.dispatch(
+        addError({ id: "mailError", message: error.response.data })
       );
       throw thunkAPI.rejectWithValue(error.response.data);
     }

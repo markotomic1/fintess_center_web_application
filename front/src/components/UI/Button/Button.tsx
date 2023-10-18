@@ -5,12 +5,14 @@ const Button = (props: {
   onClick?: () => void;
   class?: string;
   type?: "button" | "submit";
+  disable?: boolean;
 }) => {
   return (
     <button
       onClick={props.onClick}
       className={`button ${props.class ? props.class : ""}`}
       type={`${props.type === "submit" ? "submit" : "button"}`}
+      disabled={props.disable}
     >
       {props.children}
     </button>

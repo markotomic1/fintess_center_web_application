@@ -6,7 +6,7 @@
   padding: 2px 5px;
   cursor: pointer;
 }
-.button:hover {
+button:hover {
   opacity: 0.8;
 }
 .navbar__button {
@@ -42,4 +42,7 @@
   width: 200px;
   border-radius: 3px;
   margin: 0 auto;
+}
+.button--disabled {
+  cursor: not-allowed;
 }

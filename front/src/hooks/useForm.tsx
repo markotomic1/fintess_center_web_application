@@ -14,6 +14,7 @@ const useForm = <T,>(initialState: FormState<T> = {} as T) => {
   };
 
   const blurHandler = (name: keyof T, value: string) => {
+    dispatch(removeError("emailError"));
     dispatch(removeError(name.toString() + "Error"));
     if (value.trim().length < 1) {
       dispatch(

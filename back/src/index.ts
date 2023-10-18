@@ -15,7 +15,7 @@ app.get("/", (req: Request, res: Response) => {
 //routes
 
 app.use("/user", userRoutes);
-app.use("mail", mailRoutes);
+app.use("/mail", mailRoutes);
 
 //error middleware
 
