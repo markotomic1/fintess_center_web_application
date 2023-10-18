@@ -71,10 +71,10 @@ export const sendeEmail = createAsyncThunk(
   async (contactData: ContactData, thunkAPI) => {
     try {
       await axiosInstance.post("/mail/send", contactData);
-      thunkAPI.dispatch(removeError("mailError"));
+      thunkAPI.dispatch(removeError("sendMailError"));
     } catch (error: any) {
       thunkAPI.dispatch(
-        addError({ id: "mailError", message: error.response.data })
+        addError({ id: "sendMailError", message: error.response.data })
       );
       throw thunkAPI.rejectWithValue(error.response.data);
     }
