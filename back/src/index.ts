@@ -2,11 +2,37 @@ import express, { NextFunction, Request, Response } from "express";
 import userRoutes from "./routes/user";
 import mailRoutes from "./routes/mail";
 import cors from "cors";
+import winston from "winston";
 const app = express();
+
+//winston logger setup
+const logger = winston.createLogger({
+  level: "info",
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.File({ filename: "error.log", level: "error" }),
+    new winston.transports.File({ filename: "combined.log" }),
+  ],
+});
+if (process.env.NODE_ENV !== "production") {
+  logger.add(
+    new winston.transports.Console({ format: winston.format.simple() })
+  );
+}
 
 //middlewares
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:8080" }));
+app.use((req: Request, res: Response, next: NextFunction) => {
+  logger.log({
+    level: "info",
+    message: "Request recieved!",
+    method: req.method,
+    url: req.url,
+    timestamp: new Date().toISOString(),
+  });
+  next();
+});
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to fitnes center API!");
@@ -27,8 +53,7 @@ app.use(
     next: NextFunction
   ) => {
     const statusCode = error.statusCode || 500;
-
-    console.log(error);
+    logger.error(error.message);
     res.status(statusCode).send(error.message);
   }
 );
