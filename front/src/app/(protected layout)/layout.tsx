@@ -1,31 +1,37 @@
 "use client";
 import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import React, { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/redux/hooks";
+import React, { useEffect, useLayoutEffect } from "react";
+import { redirect } from "next/navigation";
 import { getUser } from "@/redux/features/userSlice";
 
 const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
-  const router = useRouter();
-  const user = useAppSelector((state) => state.user);
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
-    const getLoggedInUser = async () => {
-      await dispatch(getUser());
-    };
-    try {
-      getLoggedInUser();
-    } catch (error) {
-      console.error(error);
+    if (!token) {
+      redirect("/login");
+    } else {
+      const getLoggedInUser = async () => {
+        await dispatch(getUser());
+      };
+      try {
+        getLoggedInUser();
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }, []);
-  return (
+  }, [token]);
+  return token ? (
     <>
       <Navbar />
       {children}
       <Footer />
     </>
+  ) : (
+    <>Loading...</>
   );
 };
 
