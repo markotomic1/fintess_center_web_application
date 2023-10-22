@@ -1,8 +1,6 @@
 "use client";
-import Dashboard from "@/components/dashboard/Dashboard";
-import React, { useEffect } from "react";
-
-import { useAppSelector } from "@/redux/hooks";
+import Dashboard from "@/components/Dashboard/Dashboard";
+import React from "react";
 
 const Page = () => {
   return <Dashboard />;

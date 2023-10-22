@@ -1,13 +1,17 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import "./dashboard.scss";
-import { useAppSelector } from "@/redux/hooks";
+import Button from "../UI/Button/Button";
+import Link from "next/link";
 
 const Dashboard = () => {
-  const user = useAppSelector((state) => state.user);
   return (
-    <div>
-      <span>{user.name}</span>
+    <div className='dashboard'>
+      <div className='top'>
+        <Link href='/profile' passHref>
+          <Button class='profile__button'>Your Profile</Button>
+        </Link>
+      </div>
     </div>
   );
 };

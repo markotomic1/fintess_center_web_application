@@ -43,6 +43,13 @@ button:hover {
   border-radius: 3px;
   margin: 0 auto;
 }
+
+.profile__button {
+  padding: 10px 20px;
+  font-size: 20px;
+  background-color: $profile__button-back;
+  border-radius: 3px;
+}
 .button--disabled {
   cursor: not-allowed;
 }
