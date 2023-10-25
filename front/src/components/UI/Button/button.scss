@@ -53,3 +53,28 @@ button:hover {
 .button--disabled {
   cursor: not-allowed;
 }
+.logout__button {
+  background-color: $logout-button;
+  padding: 5px 10px;
+  @media screen and (min-width: 992px) {
+    padding: 10px 20px;
+  }
+}
+.edit__button {
+  padding: 10px 20px;
+  background-color: lightblue;
+  border-radius: 5px;
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+    padding: 10px 30px;
+  }
+}
+.password__button {
+  padding: 10px 20px;
+  background-color: lightsalmon;
+  border-radius: 5px;
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+    padding: 10px 30px;
+  }
+}

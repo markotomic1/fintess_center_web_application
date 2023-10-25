@@ -1,7 +1,11 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import "./wrapper.scss";
-const Wrapper = ({ children }: { children: React.ReactNode }) => {
-  return <div className='wrapper'>{children}</div>;
+const Wrapper = (props: { children: ReactNode; type?: string }) => {
+  return (
+    <div className={`wrapper ${props.type ? props.type : ""}`}>
+      {props.children}
+    </div>
+  );
 };
 
 export default Wrapper;
