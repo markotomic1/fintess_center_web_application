@@ -23,7 +23,10 @@ const uiSlice = createSlice({
       }
     },
     removeError(state, action: PayloadAction<string>) {
-      state.error = state.error.filter((error) => error?.id !== action.payload);
+      const errors = state.error.filter(
+        (error) => error?.id !== action.payload
+      );
+      return { ...state, error: errors };
     },
     removeErrors(state) {
       state.error = [];

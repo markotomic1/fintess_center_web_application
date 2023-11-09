@@ -1,26 +1,23 @@
 "use client";
 import Wrapper from "@/components/UI/Wrapper/Wrapper";
 import background from "../../../public/images/homeBackground.png";
-import { useEffect, useState } from "react";
-import { redirect } from "next/navigation";
-import useStorageToken from "@/hooks/useStorage";
-
+import { useAppSelector } from "@/redux/hooks";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 export default function LoginLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const token = useStorageToken();
-  const [loading, setLoading] = useState<boolean>(true);
+  const user = useAppSelector((state) => state.user);
+  const router = useRouter();
 
   useEffect(() => {
-    setLoading(true);
-    if (token) {
-      return redirect("/dashboard");
+    if (user.isLoggedIn) {
+      router.push("/dashboard");
     }
-    setLoading(false);
-  }, [token]);
-  return !loading ? (
+  }, []);
+  return !user.isLoggedIn ? (
     <>
       <img
         className='background__full'

@@ -1,0 +1,13 @@
+.dayCard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.training__info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

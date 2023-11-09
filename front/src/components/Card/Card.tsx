@@ -11,7 +11,7 @@ const Card = (props: {
   items?: string[];
 }) => {
   return (
-    <Wrapper>
+    <Wrapper type='wrapper__white'>
       <div className='card'>
         <h2 className='card__title'>{props.title}</h2>
         {props.price && (

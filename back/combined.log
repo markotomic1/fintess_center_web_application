@@ -1,0 +1,4 @@
+{"level":"info","message":"Request recieved!","method":"GET","timestamp":"2023-11-07T14:55:52.487Z","url":"/user/me"}
+{"level":"error","message":"Server error!"}
+{"level":"info","message":"Request recieved!","method":"GET","timestamp":"2023-11-07T14:55:52.873Z","url":"/user/me"}
+{"level":"error","message":"Server error!"}

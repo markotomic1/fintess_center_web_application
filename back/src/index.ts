@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import userRoutes from "./routes/user";
 import mailRoutes from "./routes/mail";
+import trainingRoutes from "./routes/training";
 import cors from "cors";
 import winston from "winston";
 const app = express();
@@ -22,7 +23,7 @@ if (process.env.NODE_ENV !== "production") {
 
 //middlewares
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:8080" }));
+app.use(cors({ origin: "http://localhost:8080", credentials: true }));
 app.use((req: Request, res: Response, next: NextFunction) => {
   logger.log({
     level: "info",
@@ -42,7 +43,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/user", userRoutes);
 app.use("/mail", mailRoutes);
-
+app.use("/training", trainingRoutes);
 //error middleware
 
 app.use(

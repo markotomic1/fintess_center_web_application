@@ -10,7 +10,9 @@ export const auth = async (
   next: NextFunction
 ) => {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
+    //    const token = req.headers.authorization?.split(" ")[1]; implement later
+
+    const token = req.headers.cookie?.split("=")[1];
 
     if (!token) throw new CustomError("Not authorized", 401);
 
@@ -26,6 +28,21 @@ export const auth = async (
     const { id, password, ...userData } = user;
 
     req.user = userData;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const isAdmin = (
+  req: UserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    if (req.user?.role !== "ADMIN")
+      throw new CustomError("Access Denied!", 403);
+
     next();
   } catch (error) {
     next(error);

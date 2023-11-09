@@ -7,7 +7,7 @@ import "./navbar.scss";
 import logo from "../../../public/images/ignitefitLogo.png";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { logout } from "@/redux/features/userSlice";
+import { logoutUser } from "@/redux/features/userSlice";
 import { useRouter } from "next/navigation";
 
 const Navbar = (props: { type?: string }) => {
@@ -26,9 +26,13 @@ const Navbar = (props: { type?: string }) => {
     setShowNavbar("hidden");
   };
 
-  const logoutHandler = () => {
-    dispatch(logout());
-    router.push("/");
+  const logoutHandler = async () => {
+    try {
+      await dispatch(logoutUser()).unwrap();
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <nav className={`navbar ${props.type === "protected" ? "protected" : ""}`}>
@@ -36,7 +40,11 @@ const Navbar = (props: { type?: string }) => {
         <Button onClick={toggleNavbar} class='navbar__button'>
           {showNavbar === "visible" ? <CloseIcon /> : <MenuIcon />}
         </Button>
-        {user?.email !== "" && <Button class='logout__button'>Logout</Button>}
+        {user?.isLoggedIn && (
+          <Button class='logout__button' onClick={logoutHandler}>
+            Logout
+          </Button>
+        )}
       </div>
 
       <ul className={`navbar__link-list ${showNavbar}`}>
@@ -48,16 +56,16 @@ const Navbar = (props: { type?: string }) => {
             Home
           </Link>
         </li>
-        {user?.email !== "" && (
+        {user?.isLoggedIn && (
           <li className='link-list__item'>
-            <Link href='/dashboard' className='link'>
+            <Link href='/dashboard' className='link' onClick={changeUrlHandler}>
               Dashboard
             </Link>
           </li>
         )}
-        {user?.email !== "" && (
+        {user?.isLoggedIn && (
           <li className='link-list__item'>
-            <Link href='/profile' className='link'>
+            <Link href='/profile' className='link' onClick={changeUrlHandler}>
               Profile
             </Link>
           </li>
@@ -79,7 +87,7 @@ const Navbar = (props: { type?: string }) => {
         </li>
       </ul>
       <div className='logout__container'>
-        {user?.email !== "" && (
+        {user?.isLoggedIn && (
           <Button class='logout__button' onClick={logoutHandler}>
             Logout
           </Button>

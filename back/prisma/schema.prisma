@@ -22,3 +22,20 @@ enum Role{
   TRAINER
   USER
 }
+enum DayOfWeek{
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+  Sunday
+}
+
+
+model Training{
+  id String @id @default(uuid()) @map("training_id")
+  trainingName String
+  trainingTime String
+  trainingDay DayOfWeek
+}

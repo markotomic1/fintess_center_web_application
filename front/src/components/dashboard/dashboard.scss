@@ -4,10 +4,50 @@
   margin-top: 100px;
   padding: 40px;
 }
-.top {
+.dashboard__top {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+.dashboard__news {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.news__heading {
+  font-size: 40px;
+  text-align: center;
+
+  @media screen and (min-width: 768px) {
+    font-size: 50px;
+  }
+}
+.dashboard__bottom {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+
+  @media screen and (min-width: 768px) {
+    align-items: flex-start;
+  }
+}
+
+.dashboard__cards {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  @media screen and (min-width: 768px) {
+    gap: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: normal;
+    justify-content: space-between;
+  }
+  @media screen and (min-width: 992px) {
+    flex-wrap: nowrap;
+  }
 }

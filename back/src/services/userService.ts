@@ -52,7 +52,7 @@ export const register = async (userData: {
   email: string;
   username: string;
   password: string;
-  role: "ADMIN" | "USER" | "TRAINER";
+  role?: "ADMIN" | "USER" | "TRAINER";
 }) => {
   try {
     if (!validator.isEmail(userData.email))
@@ -67,11 +67,7 @@ export const register = async (userData: {
     )
       throw new CustomError("Username not valid!", 400);
 
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
-
-    const user = await prisma.user.create({
-      data: { ...userData, password: hashedPassword },
-    });
+    const user = await prisma.user.signUp(userData);
     if (!user) throw new CustomError("Unable to register!", 400);
 
     const token = generateToken(userData.username);

@@ -4,6 +4,7 @@ import {
   getLoggedInUser,
   getUser,
   loginUser,
+  logoutUser,
   registerUser,
 } from "../controllers/userController";
 import express from "express";
@@ -15,5 +16,6 @@ router.post("/register", registerUser);
 router.patch("/changePassword", auth, changePassword);
 router.get("/getUser/:id", auth, getUser);
 router.get("/me", auth, getLoggedInUser);
+router.post("/logout", auth, logoutUser);
 
 export default router;

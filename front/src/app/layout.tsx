@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import "../styles/global.scss";
 import favicon from "../../public/icons/favicon.ico";
 import { Providers } from "@/redux/provider";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

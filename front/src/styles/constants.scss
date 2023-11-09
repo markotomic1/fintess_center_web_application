@@ -25,6 +25,24 @@ $contact-text: #202020;
 //profile
 
 $profile__button-back: #fd8a42;
+$profile-password-color: lightsalmon;
 
 //logout button
 $logout-button: #fb680c;
+
+//daycard buttons
+$daycard-edit-color: lightblue;
+$daycard-remove-color: rgb(254, 132, 132);
+
+//modal button
+$modal-button-color: red;
+
+//submit
+$submit-color: orange;
+
+//modal
+$overlay-back: white;
+$backdrop-back: rgba(
+  $color: #000000,
+  $alpha: 0.4,
+);

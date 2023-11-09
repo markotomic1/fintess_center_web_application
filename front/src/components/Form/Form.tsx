@@ -21,6 +21,7 @@ const Form = (props: { type: "login" | "register" }) => {
   const { error } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
   const router = useRouter();
+
   //remove old erros when page changes
   useEffect(() => {
     return () => {
@@ -33,6 +34,7 @@ const Form = (props: { type: "login" | "register" }) => {
       props.type === "register"
         ? await dispatch(registerUser(formData)).unwrap()
         : await dispatch(loginUser(formData)).unwrap();
+
       resetForm();
       router.push("/dashboard");
     } catch (error: any) {

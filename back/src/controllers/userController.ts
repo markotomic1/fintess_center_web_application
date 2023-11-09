@@ -16,8 +16,12 @@ export const loginUser = async (
     const { username, password } = req.body;
 
     const { returnData, token } = await login({ username, password });
-
-    res.json({ message: "Successfuly logged in!", token, user: returnData });
+    res
+      .cookie("token", token, {
+        maxAge: 1000 * 60 * 30 * 3,
+        httpOnly: true,
+      })
+      .json({ message: "Successfuly logged in!", user: returnData });
   } catch (error) {
     next(error);
   }
@@ -32,8 +36,11 @@ export const registerUser = async (
     const data = req.body;
 
     const { returnData, token } = await register(data);
+    console.log(token);
 
-    res.json({ message: "Successfully registered!", token });
+    res
+      .cookie("token", token, { maxAge: 1000 * 60 * 30 * 3, httpOnly: true })
+      .json({ message: "Successfully registered!" });
   } catch (error) {
     next(error);
   }
@@ -72,6 +79,18 @@ export const getUser = async (
     const { id } = req.params;
     const user = await getUserById(id);
     res.send(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const logoutUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.clearCookie("token").send("Successfully logged out");
   } catch (error) {
     next(error);
   }

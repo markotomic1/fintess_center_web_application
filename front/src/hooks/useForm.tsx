@@ -1,5 +1,5 @@
 import { addError, removeError } from "@/redux/features/uiSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { capitalizeFirstLetter } from "@/utils/stringUtils";
 import { useState } from "react";
 import validator from "validator";
@@ -8,14 +8,15 @@ type FormState<T> = T;
 const useForm = <T,>(initialState: FormState<T> = {} as T) => {
   const [formData, setFormData] = useState<FormState<T>>(initialState);
   const dispatch = useAppDispatch();
+  const { error } = useAppSelector((state) => state.ui);
 
   const handleInputChange = (name: keyof T, value: T[keyof T]) => {
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => {
+      return { ...prev, [name]: value };
+    });
   };
 
   const blurHandler = (name: keyof T, value: string) => {
-    dispatch(removeError("sendMailError"));
-    dispatch(removeError(name.toString() + "Error"));
     if (value.trim().length < 1) {
       dispatch(
         addError({
@@ -49,6 +50,9 @@ const useForm = <T,>(initialState: FormState<T> = {} as T) => {
           )} must be 6-15 chars!`,
         })
       );
+    } else if (error.length > 0) {
+      dispatch(removeError("sendMailError"));
+      dispatch(removeError(name.toString() + "Error"));
     }
   };
   const resetForm = () => {

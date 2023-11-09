@@ -3,39 +3,32 @@ import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
 import { useAppDispatch } from "@/redux/hooks";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { redirect } from "next/navigation";
 import { getUser } from "@/redux/features/userSlice";
-import useStorageToken from "@/hooks/useStorage";
-
+import { useRouter } from "next/navigation";
 const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const token = useStorageToken();
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-
+  const router = useRouter();
   useEffect(() => {
-    setLoading(true);
-    if (!token) {
-      return redirect("/login");
-    } else {
-      const getLoggedInUser = async () => {
-        await dispatch(getUser());
-      };
+    const getLoggedInUser = async () => {
       try {
-        getLoggedInUser();
-        setLoading(false);
+        await dispatch(getUser()).unwrap();
+        setIsAuthenticated(true);
       } catch (error) {
         console.error(error);
+        router.push("/");
       }
-    }
-  }, [token]);
-  return !loading ? (
+    };
+    getLoggedInUser();
+  }, []);
+
+  if (!isAuthenticated) return <>Loading...</>;
+  return (
     <>
       <Navbar type='protected' />
       {children}
       <Footer />
     </>
-  ) : (
-    <>Loading...</>
   );
 };
 

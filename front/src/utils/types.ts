@@ -6,6 +6,7 @@ export interface User {
   surname?: string;
 }
 export interface UserState {
+  isLoggedIn: boolean;
   username: string;
   email: string;
   name: string;
@@ -28,4 +29,24 @@ export interface ContactData {
   email: string;
   phone: string;
   description: string;
+}
+export type dayType =
+  | "Monday"
+  | "Tuesday"
+  | "Wednesday"
+  | "Thursday"
+  | "Friday"
+  | "Saturday"
+  | "Sunday"
+  | "";
+
+export interface Training {
+  id: string;
+  trainingName: string;
+  trainingTime: string;
+  trainingDay: dayType;
+}
+
+export interface TrainingState {
+  trainings: Training[];
 }

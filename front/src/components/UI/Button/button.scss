@@ -38,10 +38,14 @@ button:hover {
 }
 .submit__button {
   padding: 10px;
-  background-color: orange;
-  width: 200px;
+  background-color: $submit-color;
+  width: 160px;
   border-radius: 3px;
   margin: 0 auto;
+
+  @media screen and (min-width: 768px) {
+    width: 200px;
+  }
 }
 
 .profile__button {
@@ -62,7 +66,7 @@ button:hover {
 }
 .edit__button {
   padding: 10px 20px;
-  background-color: lightblue;
+  background-color: $daycard-edit-color;
   border-radius: 5px;
   @media screen and (min-width: 768px) {
     font-size: 20px;
@@ -71,10 +75,35 @@ button:hover {
 }
 .password__button {
   padding: 10px 20px;
-  background-color: lightsalmon;
+  background-color: $profile-password-color;
   border-radius: 5px;
   @media screen and (min-width: 768px) {
     font-size: 20px;
     padding: 10px 30px;
   }
+}
+.remove__button {
+  padding: 3px 15px;
+  background-color: $daycard-remove-color;
+  border-radius: 5px;
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+  }
+}
+.daycard__edit__button {
+  padding: 10px 20px;
+  background-color: $daycard-edit-color;
+  border-radius: 5px;
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+  }
+}
+.modal__button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  margin: 5px;
+  color: $modal-button-color;
+  font-size: 24px;
 }

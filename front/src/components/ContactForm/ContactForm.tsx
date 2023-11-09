@@ -5,7 +5,7 @@ import useForm from "@/hooks/useForm";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { checkError } from "@/utils/checkErrors";
 import { removeErrors } from "@/redux/features/uiSlice";
-import { sendeEmail } from "@/redux/features/userSlice";
+import { sendEmail } from "@/redux/features/userSlice";
 import { ContactData } from "@/utils/types";
 
 const ContactForm = () => {
@@ -32,7 +32,7 @@ const ContactForm = () => {
 
     try {
       if (error.length < 1) {
-        await dispatch(sendeEmail(formData));
+        await dispatch(sendEmail(formData)).unwrap();
         resetForm();
       }
     } catch (error) {
