@@ -107,3 +107,11 @@ button:hover {
   color: $modal-button-color;
   font-size: 24px;
 }
+.news__button {
+  padding: 10px 20px;
+  background-color: $daycard-edit-color;
+  border-radius: 10px;
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+  }
+}

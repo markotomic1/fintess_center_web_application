@@ -7,7 +7,7 @@ import { checkError } from "@/utils/checkErrors";
 import { Training } from "@/utils/types";
 import { addTrainingAction } from "@/redux/features/trainingSlice";
 import { closeModal } from "@/redux/features/modalSlice";
-import { daysInWeek } from "@/utils/rawData";
+import { daysInWeek, groupTrainings } from "@/utils/rawData";
 
 const AddTrainingForm = () => {
   const { error } = useAppSelector((state) => state.ui);
@@ -32,18 +32,25 @@ const AddTrainingForm = () => {
   };
   return (
     <form className='addTrainingForm' onSubmit={submitHandler}>
+      <h1 className='addNewsForm__title'>Add Training</h1>
       <label htmlFor='trainingName'>Name:</label>
-      <input
-        type='text'
-        id='trainingName'
+      <select
         name='trainingName'
+        id='trainingName'
         value={formData.trainingName}
-        onChange={(e) => handleInputChange("trainingName", e.target.value)}
         onBlur={(e) => blurHandler("trainingName", e.target.value)}
-        className={`${
+        onChange={(e) => handleInputChange("trainingName", e.target.value)}
+        className={`addTrainingForm__select ${
           checkError("trainingNameError", error) ? "inputError" : ""
         }`}
-      />
+      >
+        <option value='' disabled></option>
+        {groupTrainings.map((groupTraining) => (
+          <option value={groupTraining} key={groupTraining}>
+            {groupTraining}
+          </option>
+        ))}
+      </select>
       {checkError("trainingNameError", error) && (
         <span className='error__text'>
           {

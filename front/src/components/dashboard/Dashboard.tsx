@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { getTrainings } from "@/redux/features/trainingSlice";
 import Button from "../UI/Button/Button";
 import { openModal } from "@/redux/features/modalSlice";
+import News from "../News/News";
 const Dashboard = () => {
   const modal = useAppSelector((state) => state.modal);
   const traning = useAppSelector((state) => state.training);
@@ -22,18 +23,15 @@ const Dashboard = () => {
   }, []);
 
   const openModalHandler = () => {
-    dispatch(openModal());
+    dispatch(openModal({ modalType: "addTraining" }));
   };
   return (
     <>
-      {modal.isModalOpen && <Modal type='addTraining' />}
+      {modal.modalType === "addTraining" && <Modal />}
       <div className='dashboard'>
         <div className='dashboard__top'>
           <Wrapper>
-            <div className='dashboard__news'>
-              <h1 className='news__heading'>News</h1>
-              <p>Zumba training for tonight is cancelled!</p>
-            </div>
+            <News />
           </Wrapper>
         </div>
 

@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import userRoutes from "./routes/user";
 import mailRoutes from "./routes/mail";
 import trainingRoutes from "./routes/training";
+import newsRoutes from "./routes/news";
 import cors from "cors";
 import winston from "winston";
 const app = express();
@@ -44,6 +45,8 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/user", userRoutes);
 app.use("/mail", mailRoutes);
 app.use("/training", trainingRoutes);
+app.use("/news", newsRoutes);
+
 //error middleware
 
 app.use(

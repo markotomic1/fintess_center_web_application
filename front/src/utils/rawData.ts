@@ -1,3 +1,4 @@
+export const groupTrainings = ["HIIT", "Zumba", "Yoga", "Pilates"];
 export const aboutUsData = [
   {
     id: "1",
@@ -61,13 +62,7 @@ export const plans = [
     id: "4",
     name: "Group Classes",
     price: "29.99",
-    desc: [
-      "Group classes twice a week with trainer",
-      "Yoga",
-      "Zumba",
-      "HIIT",
-      "Pilates",
-    ],
+    desc: ["Group classes twice a week with trainer", ...groupTrainings],
   },
 ];
 export const daysInWeek = [

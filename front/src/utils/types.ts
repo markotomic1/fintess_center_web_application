@@ -50,3 +50,13 @@ export interface Training {
 export interface TrainingState {
   trainings: Training[];
 }
+export interface News {
+  id: string;
+  newsDescription: string;
+}
+export interface NewsState {
+  news: News[];
+}
+export interface ModalState {
+  modalType: "addTraining" | "addNews" | "closed";
+}

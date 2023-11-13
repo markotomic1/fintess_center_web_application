@@ -1,0 +1,26 @@
+.news {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.news__desc {
+  display: flex;
+  flex-direction: column;
+}
+.news__item {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.news__desc__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.news__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

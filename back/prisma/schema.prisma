@@ -39,3 +39,8 @@ model Training{
   trainingTime String
   trainingDay DayOfWeek
 }
+
+model News{
+  id String @id @default(uuid()) @map("news_id")
+  newsDescription String
+}

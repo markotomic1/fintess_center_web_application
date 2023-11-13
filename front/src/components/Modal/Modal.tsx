@@ -5,12 +5,13 @@ import ReactDOM from "react-dom";
 import "./modal.scss";
 import Wrapper from "../UI/Wrapper/Wrapper";
 import Button from "../UI/Button/Button";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { removeErrors } from "@/redux/features/uiSlice";
 import CloseIcon from "@mui/icons-material/Close";
 import AddTrainingForm from "../AddTrainingForm/AddTrainingForm";
 import { closeModal } from "@/redux/features/modalSlice";
-const Modal = (props: { type: "addTraining" | null }) => {
+import AddNewsForm from "../AddNewsForm/AddNewsForm";
+const Modal = () => {
   //const [mounted, setMounted] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
 
@@ -25,6 +26,15 @@ const Modal = (props: { type: "addTraining" | null }) => {
   };
 
   const ModalOverlay = () => {
+    const modal = useAppSelector((state) => state.modal);
+
+    const formToShow =
+      modal.modalType === "addNews" ? (
+        <AddNewsForm />
+      ) : modal.modalType === "addTraining" ? (
+        <AddTrainingForm />
+      ) : null;
+
     return (
       <div className='overlay'>
         <Wrapper>
@@ -32,7 +42,7 @@ const Modal = (props: { type: "addTraining" | null }) => {
             <Button onClick={closeModalHandler} class='modal__button'>
               <CloseIcon />
             </Button>
-            {props.type === "addTraining" && <AddTrainingForm />}
+            {formToShow}
           </div>
         </Wrapper>
       </div>
