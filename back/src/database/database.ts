@@ -30,7 +30,7 @@ async function createAdminUser() {
   try {
     await prisma.$connect();
     const adminUser = await prisma.user.findFirst({
-      where: { username: "admin123", role: "ADMIN" },
+      where: { role: "ADMIN" },
     });
     if (!adminUser) {
       const newAdminUser = await prisma.user.signUp({

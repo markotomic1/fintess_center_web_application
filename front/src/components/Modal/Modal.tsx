@@ -11,6 +11,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import AddTrainingForm from "../AddTrainingForm/AddTrainingForm";
 import { closeModal } from "@/redux/features/modalSlice";
 import AddNewsForm from "../AddNewsForm/AddNewsForm";
+import ChangePasswordForm from "../ChangePasswordForm/ChangePasswordForm";
+import EditProfileForm from "../EditProfileForm/EditProfileForm";
 const Modal = () => {
   //const [mounted, setMounted] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -33,6 +35,10 @@ const Modal = () => {
         <AddNewsForm />
       ) : modal.modalType === "addTraining" ? (
         <AddTrainingForm />
+      ) : modal.modalType === "changePassword" ? (
+        <ChangePasswordForm />
+      ) : modal.modalType === "editUser" ? (
+        <EditProfileForm />
       ) : null;
 
     return (

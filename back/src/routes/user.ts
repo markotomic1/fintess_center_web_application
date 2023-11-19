@@ -6,6 +6,7 @@ import {
   loginUser,
   logoutUser,
   registerUser,
+  updateUserControl,
 } from "../controllers/userController";
 import express from "express";
 
@@ -17,5 +18,6 @@ router.patch("/changePassword", auth, changePassword);
 router.get("/getUser/:id", auth, getUser);
 router.get("/me", auth, getLoggedInUser);
 router.post("/logout", auth, logoutUser);
+router.patch("/", auth, updateUserControl);
 
 export default router;

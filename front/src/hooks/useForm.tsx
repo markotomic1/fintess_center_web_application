@@ -15,6 +15,9 @@ const useForm = <T,>(initialState: FormState<T> = {} as T) => {
       return { ...prev, [name]: value };
     });
   };
+  const autoSetFormData = (data: typeof initialState) => {
+    setFormData(data);
+  };
 
   const blurHandler = (name: keyof T, value: string) => {
     if (value.trim().length < 1) {
@@ -58,7 +61,13 @@ const useForm = <T,>(initialState: FormState<T> = {} as T) => {
   const resetForm = () => {
     setFormData(initialState);
   };
-  return { formData, handleInputChange, resetForm, blurHandler };
+  return {
+    formData,
+    handleInputChange,
+    resetForm,
+    blurHandler,
+    autoSetFormData,
+  };
 };
 
 export default useForm;

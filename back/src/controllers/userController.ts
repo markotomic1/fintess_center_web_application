@@ -4,6 +4,7 @@ import {
   login,
   register,
   changeUserPassword,
+  updateUser,
 } from "../services/userService";
 import { NextFunction, Request, Response } from "express";
 
@@ -91,6 +92,29 @@ export const logoutUser = async (
 ) => {
   try {
     res.clearCookie("token").send("Successfully logged out");
+  } catch (error) {
+    next(error);
+  }
+};
+
+//update user controller
+
+export const updateUserControl = async (
+  req: UserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const user = req.body;
+    const { updatedUser, token } = await updateUser(
+      user,
+      req.user?.username,
+      req.user?.email
+    );
+
+    res
+      .cookie("token", token, { httpOnly: true, maxAge: 1000 * 60 * 30 * 3 })
+      .send(updatedUser);
   } catch (error) {
     next(error);
   }

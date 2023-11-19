@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import validator from "validator";
 import { generateToken } from "../utils/jwtUtils";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { UpdateUser } from "../utils/types";
 
 //get user by specified id
 
@@ -89,23 +90,60 @@ export const changeUserPassword = async (
   username: string,
   oldPassword: string
 ) => {
-  if (newPassword.trim().length < 6)
-    throw new CustomError("New password not valid!", 400);
+  try {
+    if (newPassword.trim().length < 6)
+      throw new CustomError("New password not valid!", 400);
 
-  const user = await prisma.user.findUnique({
-    where: { username: username },
-    select: { password: true },
-  });
-  if (!user) throw new CustomError("User not found!", 404);
+    const user = await prisma.user.findUnique({
+      where: { username: username },
+      select: { password: true },
+    });
+    if (!user) throw new CustomError("User not found!", 404);
 
-  const passwordIsValid = await bcrypt.compare(oldPassword, user.password);
+    const passwordIsValid = await bcrypt.compare(oldPassword, user.password);
 
-  if (!passwordIsValid) throw new CustomError("Old password not valid!", 400);
+    if (!passwordIsValid) throw new CustomError("Old password not valid!", 400);
 
-  const hashedNewPassword = await bcrypt.hash(newPassword, 10);
-  await prisma.user.update({
-    where: { username: username },
-    data: { password: hashedNewPassword },
-    select: { username: true },
-  });
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    await prisma.user.update({
+      where: { username: username },
+      data: { password: hashedNewPassword },
+      select: { username: true },
+    });
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+//update user profile
+
+export const updateUser = async (
+  user: UpdateUser,
+  oldUsername?: string,
+  oldEmail?: string
+) => {
+  try {
+    if (!validator.isEmail(user.email))
+      throw new CustomError("Invalid email address!", 400);
+
+    if (
+      !validator.isAlphanumeric(user.username) ||
+      user.username.trim().length < 6
+    )
+      throw new CustomError("Username not valid!", 400);
+
+    if (oldUsername !== "" && oldEmail !== "") {
+      const updatedUser = await prisma.user.update({
+        where: { username: oldUsername, email: oldEmail },
+        data: user,
+      });
+
+      const newToken = generateToken(user.username);
+      return { updatedUser, token: newToken };
+    } else {
+      throw new CustomError("Unable to update!", 403);
+    }
+  } catch (error) {
+    throw error;
+  }
 };

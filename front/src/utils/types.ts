@@ -58,5 +58,17 @@ export interface NewsState {
   news: News[];
 }
 export interface ModalState {
-  modalType: "addTraining" | "addNews" | "closed";
+  modalType:
+    | "addTraining"
+    | "addNews"
+    | "changePassword"
+    | "editUser"
+    | "closed";
+}
+
+export interface UpdateUser {
+  username: string;
+  name: string;
+  surname: string;
+  email: string;
 }

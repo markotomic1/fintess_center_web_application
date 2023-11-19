@@ -6,3 +6,10 @@ export type dayType =
   | "Friday"
   | "Saturday"
   | "Sunday";
+
+export interface UpdateUser {
+  username: string;
+  name: string;
+  surname: string;
+  email: string;
+}

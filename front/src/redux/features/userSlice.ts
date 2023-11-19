@@ -2,6 +2,7 @@ import { axiosInstance } from "@/utils/axiosInstance";
 import {
   ContactData,
   Training,
+  UpdateUser,
   User,
   UserLogin,
   UserState,
@@ -82,6 +83,8 @@ export const sendEmail = createAsyncThunk(
   }
 );
 
+//logout user
+
 export const logoutUser = createAsyncThunk(
   "user/logout",
   async (_, thunkAPI) => {
@@ -91,6 +94,48 @@ export const logoutUser = createAsyncThunk(
     } catch (error: any) {
       thunkAPI.dispatch(
         addError({ id: "logoutError", message: error.response.data })
+      );
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+//check old password
+export const changePasswordAction = createAsyncThunk(
+  "user/changePassword",
+  async (data: { oldPassword: string; newPassword: string }, thunkAPI) => {
+    try {
+      await axiosInstance.patch(
+        "/user/changePassword",
+        { ...data },
+        {
+          withCredentials: true,
+        }
+      );
+      thunkAPI.dispatch(removeError("changePasswordError"));
+    } catch (error: any) {
+      thunkAPI.dispatch(
+        addError({ id: "changePasswordError", message: error.response.data })
+      );
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+//update profile settings
+
+export const updateUserAction = createAsyncThunk(
+  "/user/editProfile",
+  async (user: UpdateUser, thunkAPI) => {
+    try {
+      const response = await axiosInstance.patch("/user", user, {
+        withCredentials: true,
+      });
+      thunkAPI.dispatch(setUser(response.data));
+      thunkAPI.dispatch(removeError("updateUserError"));
+    } catch (error: any) {
+      thunkAPI.dispatch(
+        addError({ id: "updateUserError", message: error.response.data })
       );
       throw thunkAPI.rejectWithValue(error.response.data);
     }
@@ -111,6 +156,9 @@ const userSlice = createSlice({
     login: (state) => {
       state.isLoggedIn = true;
     },
+    setUser(state, action: PayloadAction<UpdateUser>) {
+      return { ...state, ...action.payload };
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -125,4 +173,4 @@ const userSlice = createSlice({
   },
 });
 export default userSlice.reducer;
-export const { login } = userSlice.actions;
+export const { login, setUser } = userSlice.actions;

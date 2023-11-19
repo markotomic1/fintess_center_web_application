@@ -28,34 +28,39 @@ const AddNewsForm = () => {
     }
   };
   return (
-    <form className='addNewsForm' onSubmit={submitHandler}>
-      <h1 className='addNewsForm__title'>Add News</h1>
-      <div className='addNewsForm__item'>
-        <label htmlFor='newsDescription'>Description:</label>
-        <textarea
-          name='newsDescription'
-          id='newsDescription'
-          rows={10}
-          value={formData.newsDescription}
-          onChange={(e) => handleInputChange("newsDescription", e.target.value)}
-          onBlur={(e) => blurHandler("newsDescription", e.target.value)}
-          className={`${
-            checkError("newsDescriptionError", error) ? "inputError" : ""
-          }`}
-        />
-        {checkError("newsDescriptionError", error) && (
-          <span className='error__text'>
-            {
-              error.find((errorItem) => errorItem.id === "newsDescriptionError")
-                ?.message
+    <>
+      <h1 className='form__title'>Add News</h1>
+      <form className='addNewsForm' onSubmit={submitHandler}>
+        <div className='addNewsForm__item'>
+          <label htmlFor='newsDescription'>Description:</label>
+          <textarea
+            name='newsDescription'
+            id='newsDescription'
+            rows={10}
+            value={formData.newsDescription}
+            onChange={(e) =>
+              handleInputChange("newsDescription", e.target.value)
             }
-          </span>
-        )}
-      </div>
-      <Button class='submit__button' type='submit'>
-        Submit
-      </Button>
-    </form>
+            onBlur={(e) => blurHandler("newsDescription", e.target.value)}
+            className={`${
+              checkError("newsDescriptionError", error) ? "inputError" : ""
+            }`}
+          />
+          {checkError("newsDescriptionError", error) && (
+            <span className='error__text'>
+              {
+                error.find(
+                  (errorItem) => errorItem.id === "newsDescriptionError"
+                )?.message
+              }
+            </span>
+          )}
+        </div>
+        <Button class='submit__button' type='submit'>
+          Submit
+        </Button>
+      </form>
+    </>
   );
 };
 
