@@ -50,6 +50,18 @@ const Profile = () => {
               <span>{user.email}</span>
               <hr />
             </div>
+            <div className='profile__info__item'>
+              <span className='profile__item__name'>Plan:</span>
+              <span>{user.planName}</span>
+              <hr />
+            </div>
+            {user.planName !== "No_Plan" && (
+              <div className='profile__info__item'>
+                <span className='profile__item__name'>Valid due:</span>
+                <span>{user.endDate}</span>
+                <hr />
+              </div>
+            )}
           </div>
           <div className='profile__buttons'>
             <Button class='edit__button' onClick={editProfileHandler}>

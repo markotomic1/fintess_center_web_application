@@ -13,13 +13,19 @@ import { closeModal } from "@/redux/features/modalSlice";
 import AddNewsForm from "../AddNewsForm/AddNewsForm";
 import ChangePasswordForm from "../ChangePasswordForm/ChangePasswordForm";
 import EditProfileForm from "../EditProfileForm/EditProfileForm";
+import PlanForm from "../PlanForm/PlanForm";
+import PlanList from "../PlanList/PlanList";
 const Modal = () => {
   //const [mounted, setMounted] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
 
   //useEffect(() => setMounted(true), []);
   const ModalBackdrop = () => {
-    return <div className='backdrop' />;
+    const dispatch = useAppDispatch();
+    const handleBackdrop = () => {
+      dispatch(closeModal());
+    };
+    return <div className='backdrop' onClick={handleBackdrop} />;
   };
 
   const closeModalHandler = () => {
@@ -30,7 +36,7 @@ const Modal = () => {
   const ModalOverlay = () => {
     const modal = useAppSelector((state) => state.modal);
 
-    const formToShow =
+    const show =
       modal.modalType === "addNews" ? (
         <AddNewsForm />
       ) : modal.modalType === "addTraining" ? (
@@ -39,16 +45,30 @@ const Modal = () => {
         <ChangePasswordForm />
       ) : modal.modalType === "editUser" ? (
         <EditProfileForm />
+      ) : modal.modalType === "planModal" ? (
+        <PlanForm />
+      ) : modal.modalType === "choosePlan" ? (
+        <PlanList />
       ) : null;
 
     return (
-      <div className='overlay'>
-        <Wrapper>
+      <div
+        className={`${
+          modal.modalType === "choosePlan" ? "overlay__choose" : ""
+        } overlay`}
+      >
+        <Wrapper
+          type={`${
+            modal.modalType === "choosePlan" ? "choose__plan__wrapper" : ""
+          }`}
+        >
           <div className='modal'>
-            <Button onClick={closeModalHandler} class='modal__button'>
-              <CloseIcon />
-            </Button>
-            {formToShow}
+            {modal.modalType !== "choosePlan" && (
+              <Button onClick={closeModalHandler} class='modal__button'>
+                <CloseIcon />
+              </Button>
+            )}
+            {show}
           </div>
         </Wrapper>
       </div>

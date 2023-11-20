@@ -7,5 +7,6 @@ export interface UserAuthInfoRequest extends Request {
     surname: string;
     username: string;
     role: "ADMIN" | "USER" | "TRAINER";
+    planId: string;
   };
 }

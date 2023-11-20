@@ -18,6 +18,7 @@ export const prisma = new PrismaClient().$extends({
           data: {
             ...userdata,
             password: hashedPassword,
+            plan: { create: { planName: "No_Plan" } },
           },
         });
         return user;

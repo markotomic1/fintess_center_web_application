@@ -22,12 +22,18 @@ const Dashboard = () => {
     })();
   }, []);
 
-  const openModalHandler = () => {
+  const openTrainingModalHandler = () => {
     dispatch(openModal({ modalType: "addTraining" }));
+  };
+
+  const openPlanModalHandler = () => {
+    dispatch(openModal({ modalType: "choosePlan" }));
   };
   return (
     <>
       {modal.modalType === "addTraining" && <Modal />}
+      {modal.modalType === "planModal" && <Modal />}
+      {modal.modalType === "choosePlan" && <Modal />}
       <div className='dashboard'>
         <div className='dashboard__top'>
           <Wrapper>
@@ -36,11 +42,22 @@ const Dashboard = () => {
         </div>
 
         <div className='dashboard__bottom'>
-          {user.role === "ADMIN" && (
-            <Button class='daycard__edit__button' onClick={openModalHandler}>
-              Add Training
+          <div className='dashboard__buttons'>
+            {user.role === "ADMIN" && (
+              <Button
+                class='daycard__edit__button'
+                onClick={openTrainingModalHandler}
+              >
+                Add Training
+              </Button>
+            )}
+            <Button
+              class='daycard__edit__button'
+              onClick={openPlanModalHandler}
+            >
+              Choose a Plan
             </Button>
-          )}
+          </div>
           <div className='dashboard__cards'>
             {daysInWeek.map((day, i) => {
               let trainingsForDay = traning.trainings.filter((training) => {

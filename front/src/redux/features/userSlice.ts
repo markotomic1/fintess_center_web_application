@@ -1,7 +1,6 @@
 import { axiosInstance } from "@/utils/axiosInstance";
 import {
   ContactData,
-  Training,
   UpdateUser,
   User,
   UserLogin,
@@ -16,6 +15,7 @@ export const getUser = createAsyncThunk("user/getUser", async (_, thunkAPI) => {
     const { data } = await axiosInstance.get<UserState>("/user/me", {
       withCredentials: true,
     });
+
     thunkAPI.dispatch(removeError("getUserError"));
     thunkAPI.dispatch(login());
     return data;
@@ -90,6 +90,7 @@ export const logoutUser = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       await axiosInstance.post("/user/logout", _, { withCredentials: true });
+      thunkAPI.dispatch(logout());
       thunkAPI.dispatch(removeError("logoutError"));
     } catch (error: any) {
       thunkAPI.dispatch(
@@ -148,6 +149,9 @@ const initialState: UserState = {
   surname: "",
   email: "",
   role: "",
+  planName: "No_Plan",
+  startDate: "",
+  endDate: "",
 };
 const userSlice = createSlice({
   name: "user",
@@ -155,6 +159,9 @@ const userSlice = createSlice({
   reducers: {
     login: (state) => {
       state.isLoggedIn = true;
+    },
+    logout(state) {
+      state.isLoggedIn = false;
     },
     setUser(state, action: PayloadAction<UpdateUser>) {
       return { ...state, ...action.payload };
@@ -173,4 +180,4 @@ const userSlice = createSlice({
   },
 });
 export default userSlice.reducer;
-export const { login, setUser } = userSlice.actions;
+export const { login, setUser, logout } = userSlice.actions;

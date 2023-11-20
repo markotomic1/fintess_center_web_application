@@ -74,3 +74,9 @@ export const daysInWeek = [
   "Saturday",
   "Sunday",
 ];
+export const planNames = [
+  "Basic_Plan",
+  "Premium_Plan",
+  "VIP_Plan",
+  "Group_Classes_Plan",
+];

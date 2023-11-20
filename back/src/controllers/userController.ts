@@ -5,8 +5,10 @@ import {
   register,
   changeUserPassword,
   updateUser,
+  getLoggedInUserPlan,
 } from "../services/userService";
 import { NextFunction, Request, Response } from "express";
+import { CustomError } from "../utils/customError";
 
 export const loginUser = async (
   req: Request,
@@ -60,13 +62,18 @@ export const changePassword = async (
     next(error);
   }
 };
-export const getLoggedInUser = (
+export const getLoggedInUser = async (
   req: UserAuthInfoRequest,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.send(req.user);
+    const plan = await getLoggedInUserPlan(req.user?.planId!);
+
+    if (!plan) throw new CustomError("No plan found!", 400);
+
+    const { id, ...planData } = plan;
+    res.send({ ...req.user, ...planData });
   } catch (error) {
     next(error);
   }

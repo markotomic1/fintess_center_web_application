@@ -8,16 +8,14 @@
   background-color: $backdrop-back;
 }
 .overlay {
+  top: 50px;
   z-index: 100;
   position: fixed;
   border-radius: 10px;
   width: 80%;
-  top: 100px;
   margin: 0 10%;
-  background-color: $overlay-back;
 
   @media screen and (min-width: 992px) {
-    top: 50px;
     width: 60%;
     margin: 0 20%;
   }
@@ -25,5 +23,8 @@
 .modal {
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
+}
+.overlay__choose {
+  margin: 0;
+  width: 100%;
 }

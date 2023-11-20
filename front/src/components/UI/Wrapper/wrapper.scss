@@ -12,3 +12,19 @@
     width: 20%;
   }
 }
+.choose__plan__wrapper {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.plan__wrapper {
+  transition: transform 0.3s ease;
+}
+.plan__wrapper:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+
+  @media screen and (min-width: 1048px) {
+    transform: scale(1.1);
+  }
+}

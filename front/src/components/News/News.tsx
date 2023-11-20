@@ -59,7 +59,7 @@ const News = () => {
         {user.isLoggedIn && user.role === "ADMIN" && (
           <div className='news__buttons'>
             <Button class='news__button' onClick={addNewsHandler}>
-              +
+              Add News
             </Button>
           </div>
         )}

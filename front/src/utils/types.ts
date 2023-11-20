@@ -5,6 +5,14 @@ export interface User {
   name?: string;
   surname?: string;
 }
+
+export type PlanName =
+  | "Basic_Plan"
+  | "Premium_Plan"
+  | "VIP_Plan"
+  | "Group_Classes_Plan"
+  | "No_Plan";
+
 export interface UserState {
   isLoggedIn: boolean;
   username: string;
@@ -12,6 +20,9 @@ export interface UserState {
   name: string;
   surname: string;
   role: "ADMIN" | "TRAINER" | "USER" | "";
+  planName: PlanName;
+  startDate: string;
+  endDate: string;
 }
 export interface UserRegister {
   username: string;
@@ -63,6 +74,8 @@ export interface ModalState {
     | "addNews"
     | "changePassword"
     | "editUser"
+    | "planModal"
+    | "choosePlan"
     | "closed";
 }
 

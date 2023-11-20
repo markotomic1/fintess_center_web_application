@@ -147,3 +147,15 @@ export const updateUser = async (
     throw error;
   }
 };
+
+//get logged in user plan
+
+export const getLoggedInUserPlan = async (planId: string) => {
+  try {
+    const plan = await prisma.plan.findUnique({ where: { id: planId } });
+
+    return plan;
+  } catch (error) {
+    throw new CustomError("Unable to get Plan!", 500);
+  }
+};

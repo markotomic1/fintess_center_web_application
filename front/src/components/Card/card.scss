@@ -2,13 +2,10 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   text-align: center;
-
-  @media screen and (min-width: 768px) {
-    width: 200px;
-  }
 }
+
 .card__title {
   color: $about-text;
   font-size: 24px;
@@ -19,4 +16,32 @@
 .card__price {
   color: orange;
   font-size: 30px;
+}
+.card__title__list {
+  font-size: 12px;
+  @media screen and (min-width: 768px) {
+    font-size: 14px;
+  }
+  @media screen and (min-width: 1048px) {
+    font-size: 16px;
+  }
+}
+
+.card__price__list {
+  font-size: 14px;
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+  }
+  @media screen and (min-width: 1048px) {
+    font-size: 18px;
+  }
+}
+.card__description__list {
+  font-size: 12px;
+  @media screen and (min-width: 768px) {
+    font-size: 14px;
+  }
+  @media screen and (min-width: 1048px) {
+    font-size: 16px;
+  }
 }
