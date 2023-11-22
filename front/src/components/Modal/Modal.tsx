@@ -13,8 +13,8 @@ import { closeModal } from "@/redux/features/modalSlice";
 import AddNewsForm from "../AddNewsForm/AddNewsForm";
 import ChangePasswordForm from "../ChangePasswordForm/ChangePasswordForm";
 import EditProfileForm from "../EditProfileForm/EditProfileForm";
-import PlanForm from "../PlanForm/PlanForm";
 import PlanList from "../PlanList/PlanList";
+import AddPlanForm from "../AddPlanForm/AddPlanForm";
 const Modal = () => {
   //const [mounted, setMounted] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -45,10 +45,10 @@ const Modal = () => {
         <ChangePasswordForm />
       ) : modal.modalType === "editUser" ? (
         <EditProfileForm />
-      ) : modal.modalType === "planModal" ? (
-        <PlanForm />
       ) : modal.modalType === "choosePlan" ? (
         <PlanList />
+      ) : modal.modalType === "addPlan" ? (
+        <AddPlanForm />
       ) : null;
 
     return (

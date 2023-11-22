@@ -13,3 +13,8 @@ export interface UpdateUser {
   surname: string;
   email: string;
 }
+export interface Plan {
+  planName: string;
+  planPrice: string;
+  planDescription: string[];
+}

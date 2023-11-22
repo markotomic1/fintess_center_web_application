@@ -8,19 +8,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum TypeOfPlan{
-  Basic_Plan
-  Premium_Plan
-  VIP_Plan
-  Group_Classes_Plan
-  No_Plan
-}
+
 
 model Plan{
   id String @id @default(uuid()) @map("plan_id")
-  planName TypeOfPlan @default(No_Plan)
-  startDate DateTime?
-  endDate DateTime?
+  planName String 
+  planPrice Decimal?
+  planDescription String[]
   user User[]
 }
 
@@ -32,8 +26,10 @@ model User{
   email String @unique 
   password String @unique
   role Role @default(USER)
-  plan Plan @relation(fields: [planId],references: [id])
-  planId String @unique
+  plan Plan? @relation(fields: [planId],references: [id])
+  planId String? @unique
+  startDateOfPlan DateTime?
+  endDateOfPlan DateTime?
 }
 enum Role{
   ADMIN

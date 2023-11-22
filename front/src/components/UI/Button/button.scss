@@ -115,3 +115,13 @@ button:hover {
     font-size: 20px;
   }
 }
+.plan__delete__button {
+  position: absolute;
+  top: 05px;
+  right: 5px;
+  color: red;
+  background-color: transparent;
+}
+.plan__delete__button:hover {
+  color: rgb(255, 107, 107);
+}

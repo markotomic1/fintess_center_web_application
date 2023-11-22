@@ -149,7 +149,7 @@ const initialState: UserState = {
   surname: "",
   email: "",
   role: "",
-  planName: "No_Plan",
+  planName: "",
   startDate: "",
   endDate: "",
 };

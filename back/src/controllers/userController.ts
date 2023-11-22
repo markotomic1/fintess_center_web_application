@@ -68,9 +68,12 @@ export const getLoggedInUser = async (
   next: NextFunction
 ) => {
   try {
-    const plan = await getLoggedInUserPlan(req.user?.planId!);
+    if (!req.user?.planId) {
+      return res.send(req.user);
+    }
+    const plan = await getLoggedInUserPlan(req.user?.planId);
 
-    if (!plan) throw new CustomError("No plan found!", 400);
+    if (!plan) throw new CustomError("Plan not found!", 400);
 
     const { id, ...planData } = plan;
     res.send({ ...req.user, ...planData });

@@ -10,6 +10,7 @@ import { getTrainings } from "@/redux/features/trainingSlice";
 import Button from "../UI/Button/Button";
 import { openModal } from "@/redux/features/modalSlice";
 import News from "../News/News";
+import { getPlansAction } from "@/redux/features/planSlice";
 const Dashboard = () => {
   const modal = useAppSelector((state) => state.modal);
   const traning = useAppSelector((state) => state.training);
@@ -26,13 +27,17 @@ const Dashboard = () => {
     dispatch(openModal({ modalType: "addTraining" }));
   };
 
-  const openPlanModalHandler = () => {
+  const openPlanModalHandler = async () => {
     dispatch(openModal({ modalType: "choosePlan" }));
+  };
+
+  const addPlanHandler = () => {
+    dispatch(openModal({ modalType: "addPlan" }));
   };
   return (
     <>
       {modal.modalType === "addTraining" && <Modal />}
-      {modal.modalType === "planModal" && <Modal />}
+      {modal.modalType === "addPlan" && <Modal />}
       {modal.modalType === "choosePlan" && <Modal />}
       <div className='dashboard'>
         <div className='dashboard__top'>
@@ -44,12 +49,17 @@ const Dashboard = () => {
         <div className='dashboard__bottom'>
           <div className='dashboard__buttons'>
             {user.role === "ADMIN" && (
-              <Button
-                class='daycard__edit__button'
-                onClick={openTrainingModalHandler}
-              >
-                Add Training
-              </Button>
+              <>
+                <Button
+                  class='daycard__edit__button'
+                  onClick={openTrainingModalHandler}
+                >
+                  Add Training
+                </Button>
+                <Button class='daycard__edit__button' onClick={addPlanHandler}>
+                  Add Plan
+                </Button>
+              </>
             )}
             <Button
               class='daycard__edit__button'

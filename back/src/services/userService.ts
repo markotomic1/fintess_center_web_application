@@ -156,6 +156,7 @@ export const getLoggedInUserPlan = async (planId: string) => {
 
     return plan;
   } catch (error) {
+    console.log(error);
     throw new CustomError("Unable to get Plan!", 500);
   }
 };

@@ -52,10 +52,10 @@ const Profile = () => {
             </div>
             <div className='profile__info__item'>
               <span className='profile__item__name'>Plan:</span>
-              <span>{user.planName}</span>
+              <span>{user.planName === "" ? "No Plan" : user.planName}</span>
               <hr />
             </div>
-            {user.planName !== "No_Plan" && (
+            {user.planName !== "" && (
               <div className='profile__info__item'>
                 <span className='profile__item__name'>Valid due:</span>
                 <span>{user.endDate}</span>

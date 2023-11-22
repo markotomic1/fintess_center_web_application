@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import "./about.scss";
 import { aboutUsData } from "../../utils/rawData";
@@ -46,6 +47,7 @@ const About = () => {
               key={item.id}
               title={item.title}
               description={item.description}
+              type='about__card'
             />
           ))}
         </div>
