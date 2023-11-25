@@ -27,7 +27,7 @@ model User{
   password String @unique
   role Role @default(USER)
   plan Plan? @relation(fields: [planId],references: [id])
-  planId String? @unique
+  planId String? 
   startDateOfPlan DateTime?
   endDateOfPlan DateTime?
 }

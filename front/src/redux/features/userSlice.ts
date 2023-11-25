@@ -1,6 +1,7 @@
 import { axiosInstance } from "@/utils/axiosInstance";
 import {
   ContactData,
+  Plan,
   UpdateUser,
   User,
   UserLogin,
@@ -142,6 +143,35 @@ export const updateUserAction = createAsyncThunk(
     }
   }
 );
+
+export const purchasePlan = createAsyncThunk(
+  "user/purchase",
+  async (
+    data: { id: string; startDate: string; endDate: string },
+    thunkAPI
+  ) => {
+    try {
+      await axiosInstance.patch(
+        "/plan/purchasePlan",
+        {
+          plan: {
+            id: data.id,
+            startDate: data.startDate,
+            endDate: data.endDate,
+          },
+        },
+        { withCredentials: true }
+      );
+      await thunkAPI.dispatch(getUser()).unwrap();
+      thunkAPI.dispatch(removeError("purchasePlanError"));
+    } catch (error: any) {
+      thunkAPI.dispatch(
+        addError({ id: "purchasePlanError", message: error.response.data })
+      );
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 const initialState: UserState = {
   isLoggedIn: false,
   username: "",
@@ -150,8 +180,8 @@ const initialState: UserState = {
   email: "",
   role: "",
   planName: "",
-  startDate: "",
-  endDate: "",
+  startDateOfPlan: "",
+  endDateOfPlan: "",
 };
 const userSlice = createSlice({
   name: "user",

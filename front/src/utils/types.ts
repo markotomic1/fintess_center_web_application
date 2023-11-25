@@ -14,8 +14,8 @@ export interface UserState {
   surname: string;
   role: "ADMIN" | "TRAINER" | "USER" | "";
   planName: string;
-  startDate: string;
-  endDate: string;
+  startDateOfPlan: string;
+  endDateOfPlan: string;
 }
 export interface UserRegister {
   username: string;
@@ -86,6 +86,7 @@ export interface Plan {
 }
 export interface PlanSlice {
   plans: Plan[];
+  choosenPlan: Plan;
 }
 export interface PlanFormData {
   id?: string;

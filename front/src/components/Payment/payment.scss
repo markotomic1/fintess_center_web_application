@@ -1,0 +1,35 @@
+.payment {
+  margin-top: 100px;
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+.payment__plan__info {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid rgb(238, 236, 236);
+}
+.payment__card__container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.payment__item {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+.payment__price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}

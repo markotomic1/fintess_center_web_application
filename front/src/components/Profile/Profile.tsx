@@ -58,7 +58,7 @@ const Profile = () => {
             {user.planName !== "" && (
               <div className='profile__info__item'>
                 <span className='profile__item__name'>Valid due:</span>
-                <span>{user.endDate}</span>
+                <span>{new Date(user.endDateOfPlan).toLocaleDateString()}</span>
                 <hr />
               </div>
             )}

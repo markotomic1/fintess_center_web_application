@@ -1,6 +1,22 @@
-version: "1"
+version: "3"
 
 services:
+  front:
+    container_name: front
+    build:
+      context: ./front/
+      dockerfile: Dockerfile
+    networks:
+      - my-network
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    environment:
+      - NEXT_PUBLIC_MAP_KEY=AIzaSyAXQKN35kt5AtQZnlb8zR97tW6sR3K2ejE
+      - NEXT_PUBLIC_BASE_URL=http://localhost:3000
+    command: ["npm", "run", "dev"]
+
   postgres-database:
     container_name: postgres-db
     image: postgres
@@ -22,14 +38,13 @@ services:
   backend:
     container_name: backend
     build:
-      context: .
+      context: ./back/
       dockerfile: Dockerfile
-      target: base
     networks:
       - my-network
     volumes:
-      - ./src:/usr/app/src
-      - ./nodemon.json:/usr/app/nodemon.json
+      - ./back/src:/usr/app/src
+      - ./back/nodemon.json:/usr/app/nodemon.json
     environment:
       - NODE_ENV=development
       - PORT=3000
@@ -43,7 +58,7 @@ services:
       - 3000:3000
     depends_on:
       - postgres-database
-    command: npm run dev
+    command: ["npm", "run", "dev"]
 
 volumes:
   postgres-data:

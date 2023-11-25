@@ -5,6 +5,12 @@ import { axiosInstance } from "@/utils/axiosInstance";
 
 const initialState: PlanSlice = {
   plans: [],
+  choosenPlan: {
+    planDescription: [],
+    planName: "",
+    id: "",
+    planPrice: "",
+  },
 };
 
 export const addPlanAction = createAsyncThunk(
@@ -75,9 +81,13 @@ const planSlice = createSlice({
     deletePlan(state, action: PayloadAction<string>) {
       state.plans = state.plans.filter((plan) => plan.id !== action.payload);
     },
+    setChosenPlan(state, action: PayloadAction<Plan>) {
+      state.choosenPlan = action.payload;
+    },
   },
 });
 
 export default planSlice.reducer;
 
-export const { addPlan, addPlans, deletePlan } = planSlice.actions;
+export const { addPlan, addPlans, deletePlan, setChosenPlan } =
+  planSlice.actions;

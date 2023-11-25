@@ -4,7 +4,9 @@ import "./card.scss";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Button from "../UI/Button/Button";
 import CloseIcon from "@mui/icons-material/Close";
-import { deletePlanAction } from "@/redux/features/planSlice";
+import { deletePlanAction, setChosenPlan } from "@/redux/features/planSlice";
+import { useRouter } from "next/navigation";
+import { closeModal } from "@/redux/features/modalSlice";
 
 const Card = (props: {
   id?: string;
@@ -17,6 +19,7 @@ const Card = (props: {
 }) => {
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const deletePlanHandler = async () => {
     try {
@@ -25,10 +28,24 @@ const Card = (props: {
       console.error(error);
     }
   };
+
+  const choosePlanHandler = () => {
+    dispatch(
+      setChosenPlan({
+        planDescription: props.items!,
+        planName: props.title,
+        planPrice: props.price!,
+        id: props.id,
+      })
+    );
+    dispatch(closeModal());
+    router.push("/payment");
+  };
   return (
     <Wrapper type={`${props.type}`}>
       <div
         className={`card ${props.type === "plan__wrapper" ? "card__list" : ""}`}
+        onClick={props.type === "plan__wrapper" ? choosePlanHandler : undefined}
       >
         {user.role === "ADMIN" && props.type === "plan__wrapper" && (
           <Button class='plan__delete__button' onClick={deletePlanHandler}>

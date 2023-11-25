@@ -3,8 +3,9 @@ import React from "react";
 import "./addPlanForm.scss";
 import Button from "../UI/Button/Button";
 import { PlanFormData } from "@/utils/types";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addPlanAction } from "@/redux/features/planSlice";
+import { closeModal } from "@/redux/features/modalSlice";
 
 const AddPlanForm = () => {
   const { formData, handleInputChange, resetForm, blurHandler } =
@@ -14,6 +15,7 @@ const AddPlanForm = () => {
       planPrice: "",
     });
   const dispatch = useAppDispatch();
+  const { error } = useAppSelector((state) => state.ui);
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,6 +28,7 @@ const AddPlanForm = () => {
           planDescription: formData.planDescription.split("."),
         })
       ).unwrap();
+      dispatch(closeModal());
     } catch (error) {
       console.error(error);
     }
@@ -75,6 +78,17 @@ const AddPlanForm = () => {
           Submit
         </Button>
       </form>
+      <div className='error__container'>
+        {error.map((error, i) => {
+          if (error.id === "addPlanError") {
+            return (
+              <span className='error__text' key={i}>
+                {error.message}
+              </span>
+            );
+          }
+        })}
+      </div>
     </>
   );
 };
