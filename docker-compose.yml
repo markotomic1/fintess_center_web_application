@@ -13,7 +13,6 @@ services:
     ports:
       - 8080:8080
     environment:
-      - NEXT_PUBLIC_MAP_KEY=AIzaSyAXQKN35kt5AtQZnlb8zR97tW6sR3K2ejE
       - NEXT_PUBLIC_BASE_URL=http://localhost:3000
     command: ["npm", "run", "dev"]
 
