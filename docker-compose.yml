@@ -12,9 +12,12 @@ services:
       - 8080
     ports:
       - 8080:8080
+    volumes:
+      - ./front:/usr/app
+      - /usr/app/node_modules
+      - /usr/app/.next
     environment:
       - NEXT_PUBLIC_BASE_URL=http://localhost:3000
-    command: ["npm", "run", "dev"]
 
   postgres-database:
     container_name: postgres-db
@@ -57,10 +60,8 @@ services:
       - 3000:3000
     depends_on:
       - postgres-database
-    command: ["npm", "run", "dev"]
 
 volumes:
   postgres-data:
-    driver: local
 networks:
   my-network:
