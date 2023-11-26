@@ -5,6 +5,7 @@ import {
   getUser,
   loginUser,
   logoutUser,
+  purchasePlanControl,
   registerUser,
   updateUserControl,
 } from "../controllers/userController";
@@ -19,5 +20,6 @@ router.get("/getUser/:id", auth, getUser);
 router.get("/me", auth, getLoggedInUser);
 router.post("/logout", auth, logoutUser);
 router.patch("/", auth, updateUserControl);
+router.patch("/purchasePlan", auth, purchasePlanControl);
 
 export default router;

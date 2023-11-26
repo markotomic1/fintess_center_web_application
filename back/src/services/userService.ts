@@ -160,3 +160,19 @@ export const getLoggedInUserPlan = async (planId: string) => {
     throw new CustomError("Unable to get Plan!", 500);
   }
 };
+export const purchasePlan = async (
+  username: string,
+  planId: string,
+  startDate: string,
+  endDate: string
+) => {
+  try {
+    await prisma.user.update({
+      where: { username },
+      data: { planId, startDateOfPlan: startDate, endDateOfPlan: endDate },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new CustomError("Unable to purchase plan!", 400);
+  }
+};

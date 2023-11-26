@@ -6,6 +6,7 @@ import {
   changeUserPassword,
   updateUser,
   getLoggedInUserPlan,
+  purchasePlan,
 } from "../services/userService";
 import { NextFunction, Request, Response } from "express";
 import { CustomError } from "../utils/customError";
@@ -125,6 +126,24 @@ export const updateUserControl = async (
     res
       .cookie("token", token, { httpOnly: true, maxAge: 1000 * 60 * 30 * 3 })
       .send(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+};
+export const purchasePlanControl = async (
+  req: UserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { plan } = req.body;
+    await purchasePlan(
+      req.user?.username!,
+      plan.id,
+      plan.startDate,
+      plan.endDate
+    );
+    res.send("Successfully purchaes a plan!");
   } catch (error) {
     next(error);
   }

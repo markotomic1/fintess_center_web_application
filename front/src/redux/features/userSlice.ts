@@ -152,7 +152,7 @@ export const purchasePlan = createAsyncThunk(
   ) => {
     try {
       await axiosInstance.patch(
-        "/plan/purchasePlan",
+        "/user/purchasePlan",
         {
           plan: {
             id: data.id,

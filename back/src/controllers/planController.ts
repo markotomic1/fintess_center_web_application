@@ -1,11 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import {
-  addPlan,
-  deletePlan,
-  getPlans,
-  purchasePlan,
-} from "../services/planService";
-import { UserAuthInfoRequest } from "../utils/requestTypes";
+import { addPlan, deletePlan, getPlans } from "../services/planService";
 
 export const addPlanControl = async (
   req: Request,
@@ -44,25 +38,6 @@ export const deletePlanControl = async (
   try {
     await deletePlan(req.params.id);
     res.send("Successfully deleted plan!");
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const purchasePlanControl = async (
-  req: UserAuthInfoRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const { plan } = req.body;
-    await purchasePlan(
-      req.user?.username!,
-      plan.id,
-      plan.startDate,
-      plan.endDate
-    );
-    res.send("Successfully purchaes a plan!");
   } catch (error) {
     next(error);
   }

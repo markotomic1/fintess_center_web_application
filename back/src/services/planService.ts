@@ -29,21 +29,3 @@ export const deletePlan = async (id: string) => {
     throw new CustomError("Unable to delete plan!", 500);
   }
 };
-
-export const purchasePlan = async (
-  username: string,
-  planId: string,
-  startDate: string,
-  endDate: string
-) => {
-  try {
-    console.log(planId);
-    await prisma.user.update({
-      where: { username },
-      data: { planId, startDateOfPlan: startDate, endDateOfPlan: endDate },
-    });
-  } catch (error) {
-    console.error(error);
-    throw new CustomError("Unable to purchase plan!", 400);
-  }
-};
