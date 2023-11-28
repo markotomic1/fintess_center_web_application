@@ -32,7 +32,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: gray;
+  border: 5px solid white;
+}
+.profile__user__image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
 }
 .photo__add {
   display: flex;
@@ -41,10 +47,13 @@
   position: absolute;
   bottom: 4%;
   left: 75%;
-  padding: 7px;
+  padding: 10px;
   border: 4px solid white;
   background-color: $logout-button;
   border-radius: 50%;
+  cursor: pointer;
+}
+.file__label {
   cursor: pointer;
 }
 
@@ -77,4 +86,7 @@
 }
 .profile__item__name {
   color: gray;
+}
+.file__input {
+  display: none;
 }

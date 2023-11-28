@@ -144,6 +144,8 @@ export const updateUserAction = createAsyncThunk(
   }
 );
 
+//puchase a plan
+
 export const purchasePlan = createAsyncThunk(
   "user/purchase",
   async (
@@ -172,6 +174,29 @@ export const purchasePlan = createAsyncThunk(
     }
   }
 );
+
+// upload image
+
+export const uploadImageAction = createAsyncThunk(
+  "user/imgUpload",
+  async (imgUrl: string, thunkAPI) => {
+    try {
+      await axiosInstance.patch(
+        "/user/storeImg",
+        { imgUrl },
+        { withCredentials: true }
+      );
+      await thunkAPI.dispatch(getUser()).unwrap();
+      thunkAPI.dispatch(removeError("uploadImgError"));
+    } catch (error: any) {
+      thunkAPI.dispatch(
+        addError({ id: "uploadImgError", message: error.response.data })
+      );
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const initialState: UserState = {
   isLoggedIn: false,
   username: "",
@@ -182,6 +207,7 @@ const initialState: UserState = {
   planName: "",
   startDateOfPlan: "",
   endDateOfPlan: "",
+  imgUrl: "",
 };
 const userSlice = createSlice({
   name: "user",

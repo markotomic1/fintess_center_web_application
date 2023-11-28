@@ -176,3 +176,11 @@ export const purchasePlan = async (
     throw new CustomError("Unable to purchase plan!", 400);
   }
 };
+export const storeImageUrl = async (username: string, imgUrl: string) => {
+  try {
+    await prisma.user.update({ where: { username }, data: { imgUrl } });
+  } catch (error) {
+    console.error(error);
+    throw new CustomError("Unable to store Url!", 400);
+  }
+};

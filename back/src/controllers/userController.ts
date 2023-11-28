@@ -7,6 +7,7 @@ import {
   updateUser,
   getLoggedInUserPlan,
   purchasePlan,
+  storeImageUrl,
 } from "../services/userService";
 import { NextFunction, Request, Response } from "express";
 import { CustomError } from "../utils/customError";
@@ -144,6 +145,18 @@ export const purchasePlanControl = async (
       plan.endDate
     );
     res.send("Successfully purchaes a plan!");
+  } catch (error) {
+    next(error);
+  }
+};
+export const storeImgUrlControl = async (
+  req: UserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    await storeImageUrl(req.user?.username!, req.body.imgUrl);
+    res.send("Image url successfully stored!");
   } catch (error) {
     next(error);
   }

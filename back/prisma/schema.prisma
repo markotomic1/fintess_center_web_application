@@ -28,6 +28,7 @@ model User{
   role Role @default(USER)
   plan Plan? @relation(fields: [planId],references: [id])
   planId String? 
+  imgUrl String
   startDateOfPlan DateTime?
   endDateOfPlan DateTime?
 }

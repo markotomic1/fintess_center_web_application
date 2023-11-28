@@ -7,6 +7,7 @@ import {
   logoutUser,
   purchasePlanControl,
   registerUser,
+  storeImgUrlControl,
   updateUserControl,
 } from "../controllers/userController";
 import express from "express";
@@ -21,5 +22,6 @@ router.get("/me", auth, getLoggedInUser);
 router.post("/logout", auth, logoutUser);
 router.patch("/", auth, updateUserControl);
 router.patch("/purchasePlan", auth, purchasePlanControl);
+router.patch("/storeImg", auth, storeImgUrlControl);
 
 export default router;

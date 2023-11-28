@@ -18,6 +18,8 @@ export const prisma = new PrismaClient().$extends({
           data: {
             ...userdata,
             password: hashedPassword,
+            imgUrl:
+              "https://firebasestorage.googleapis.com/v0/b/diplomski-firebase-storage.appspot.com/o/images%2Fdefault__image.png?alt=media&token=72ca3e46-6de4-4ada-9af3-12ddfda0f744",
           },
         });
         return user;

@@ -16,6 +16,7 @@ export interface UserState {
   planName: string;
   startDateOfPlan: string;
   endDateOfPlan: string;
+  imgUrl: string;
 }
 export interface UserRegister {
   username: string;
