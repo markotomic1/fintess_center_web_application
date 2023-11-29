@@ -17,7 +17,7 @@ const About = () => {
           <h1 className='header__title'>About us</h1>
         </div>
         <p className='section__aboutus__desc'>
-          At Ignite Fit, we're not just a gym; we're a community of fitness
+          At Ignite Fit, we are not just a gym; we are a community of fitness
           enthusiasts, trainers, and individuals who are passionate about
           helping you achieve your health and fitness goals. Our mission is
           simple: to ignite the spark of fitness in everyone who walks through
@@ -25,7 +25,7 @@ const About = () => {
           who shared a common vision: to create a welcoming and empowering
           fitness space where individuals of all fitness levels could thrive. We
           understand that embarking on a fitness journey can be daunting, which
-          is why we're here to support, guide, and motivate you every step of
+          is why we are here to support, guide, and motivate you every step of
           the way.
         </p>
       </section>
@@ -34,7 +34,7 @@ const About = () => {
         <p className='section__mission__desc'>
           At Ignite Fit, we are committed to providing a welcoming and
           supportive environment where individuals of all fitness levels can
-          thrive. Whether you're a seasoned athlete or taking your first steps
+          thrive. Whether you are a seasoned athlete or taking your first steps
           on your fitness journey, we have the programs, expertise, and
           state-of-the-art facilities to help you succeed.
         </p>

@@ -1,4 +1,3 @@
-import { plans } from "@/utils/rawData";
 import React, { useEffect } from "react";
 import Card from "../Card/Card";
 import "./planList.scss";
@@ -16,7 +15,7 @@ const PlanList = () => {
         console.error(error);
       }
     })();
-  }, []);
+  }, [dispatch]);
   return (
     <div className='planList'>
       {plan.plans.map((plan) => {

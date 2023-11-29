@@ -1,16 +1,16 @@
 "use client";
 import React, { useEffect } from "react";
 import "./dashboard.scss";
-import Wrapper from "../UI/Wrapper/Wrapper";
+import Wrapper from "../Wrapper/Wrapper";
 import { daysInWeek } from "@/utils/rawData";
 import DayCard from "../DayCard/DayCard";
 import Modal from "../Modal/Modal";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { getTrainings } from "@/redux/features/trainingSlice";
-import Button from "../UI/Button/Button";
+import Button from "../Button/Button";
 import { openModal } from "@/redux/features/modalSlice";
 import News from "../News/News";
-import { getPlansAction } from "@/redux/features/planSlice";
+import UsersTable from "../UsersTable/UsersTable";
 const Dashboard = () => {
   const modal = useAppSelector((state) => state.modal);
   const traning = useAppSelector((state) => state.training);
@@ -21,7 +21,7 @@ const Dashboard = () => {
     (async () => {
       await dispatch(getTrainings());
     })();
-  }, []);
+  }, [dispatch]);
 
   const openTrainingModalHandler = () => {
     dispatch(openModal({ modalType: "addTraining" }));
@@ -48,7 +48,7 @@ const Dashboard = () => {
 
         <div className='dashboard__bottom'>
           <div className='dashboard__buttons'>
-            {user.role === "ADMIN" && (
+            {user.currentUser.role === "ADMIN" && (
               <>
                 <Button
                   class='daycard__edit__button'
@@ -79,6 +79,7 @@ const Dashboard = () => {
             })}
           </div>
         </div>
+        {user.currentUser.role === "ADMIN" && <UsersTable />}
       </div>
     </>
   );

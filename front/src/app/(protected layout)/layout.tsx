@@ -2,7 +2,7 @@
 import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
 import { useAppDispatch } from "@/redux/hooks";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getUser, logoutUser } from "@/redux/features/userSlice";
 import { useRouter } from "next/navigation";
 const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
@@ -21,7 +21,7 @@ const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
       }
     };
     getLoggedInUser();
-  }, []);
+  }, [dispatch, router]);
 
   if (!isAuthenticated) return <>Loading...</>;
   return (

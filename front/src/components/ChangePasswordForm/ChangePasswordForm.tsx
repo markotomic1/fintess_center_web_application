@@ -1,7 +1,7 @@
 import React from "react";
 import "./changePasswordForm.scss";
 import useForm from "@/hooks/useForm";
-import Button from "../UI/Button/Button";
+import Button from "../Button/Button";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { changePasswordAction } from "@/redux/features/userSlice";
 import { addError } from "@/redux/features/uiSlice";

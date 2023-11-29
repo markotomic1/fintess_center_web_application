@@ -2,13 +2,14 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import "./profile.scss";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import Button from "../UI/Button/Button";
+import Button from "../Button/Button";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import Modal from "../Modal/Modal";
 import { openModal } from "@/redux/features/modalSlice";
 import { uploadFile } from "@/utils/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import { uploadImageAction } from "@/redux/features/userSlice";
+import Image from "next/image";
 
 const Profile = () => {
   const [img, setImg] = useState<File | null>(null);
@@ -20,7 +21,9 @@ const Profile = () => {
 
   useEffect(() => {
     (async () => {
-      img && imgUrl === "" && uploadFile(img, setImgUrl, setImg);
+      if (img && imgUrl === "") {
+        uploadFile(img, setImgUrl, setImg);
+      }
 
       if (imgUrl !== "") {
         //store link in database
@@ -32,71 +35,7 @@ const Profile = () => {
         }
       }
     })();
-  }, [img, imgUrl]);
-
-  // export const uploadFile = (file: File) => {
-  //   const storage = getStorage(app);
-
-  //   //create the file metadata
-  //   const metadata = {
-  //     contentType: "image/png",
-  //   };
-  //   // Upload file and metadata to the object 'images'
-  //   const filename = new Date().getTime() + file.name;
-  //   const storageRef = ref(storage, "images/" + filename);
-  //   const uploadTask = uploadBytesResumable(storageRef, file, metadata);
-
-  //   // Listen for state changes, errors, and completion of the upload.
-  //   uploadTask.on(
-  //     "state_changed",
-  //     (snapshot) => {
-  //       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-  //       const progress =
-  //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-  //       console.log("Upload is " + progress + "% done");
-  //       switch (snapshot.state) {
-  //         case "paused":
-  //           console.log("Upload is paused");
-  //           break;
-  //         case "running":
-  //           console.log("Upload is running");
-  //           break;
-  //       }
-  //     },
-  //     (error) => {
-  //       // A full list of error codes is available at
-  //       // https://firebase.google.com/docs/storage/web/handle-errors
-  //       switch (error.code) {
-  //         case "storage/unauthorized":
-  //           // User doesn't have permission to access the object
-  //           console.error(error);
-  //           toast.error("Unauthorized!");
-  //           break;
-  //         case "storage/canceled":
-  //           // User canceled the upload
-  //           console.error(error);
-  //           toast.error("Upload canceled!");
-  //           break;
-
-  //         // ...
-
-  //         case "storage/unknown":
-  //           // Unknown error occurred, inspect error.serverResponse
-  //           console.error(error);
-  //           toast.error("An Error Occured!");
-  //           break;
-  //       }
-  //     },
-  //     () => {
-  //       // Upload completed successfully, now we can get the download URL
-  //       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-  //         console.log("File available at", downloadURL);
-  //         setImgUrl(downloadURL);
-  //         setImg(null);
-  //       });
-  //     }
-  //   );
-  // };
+  }, [img, imgUrl, dispatch]);
 
   const handleIconClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -107,7 +46,7 @@ const Profile = () => {
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setImg((prev) => {
+    setImg(() => {
       if (e.target.files) {
         return e.target.files[0];
       }
@@ -129,8 +68,10 @@ const Profile = () => {
       <div className='profile'>
         <div className='photo__container'>
           <div className='profile__image'>
-            <img
-              src={user.imgUrl}
+            <Image
+              width={200}
+              height={200}
+              src={user.currentUser.imgUrl}
               alt='Profile picture'
               className='profile__user__image'
             />
@@ -158,33 +99,41 @@ const Profile = () => {
           <div className='profile__info'>
             <div className='profile__info__item'>
               <span className='profile__item__name'>Username:</span>
-              <span>{user.username}</span>
+              <span>{user.currentUser.username}</span>
               <hr />
             </div>
             <div className='profile__info__item'>
               <span className='profile__item__name'>Name:</span>
-              <span>{user.name}</span>
+              <span>{user.currentUser.name}</span>
               <hr />
             </div>
             <div className='profile__info__item'>
               <span className='profile__item__name'>Surname:</span>
-              <span>{user.surname}</span>
+              <span>{user.currentUser.surname}</span>
               <hr />
             </div>
             <div className='profile__info__item'>
               <span className='profile__item__name'>Email:</span>
-              <span>{user.email}</span>
+              <span>{user.currentUser.email}</span>
               <hr />
             </div>
             <div className='profile__info__item'>
               <span className='profile__item__name'>Plan:</span>
-              <span>{user.planName === "" ? "No Plan" : user.planName}</span>
+              <span>
+                {user.currentUser.planName === ""
+                  ? "No Plan"
+                  : user.currentUser.planName}
+              </span>
               <hr />
             </div>
-            {user.planName !== "" && (
+            {user.currentUser.planName !== "" && (
               <div className='profile__info__item'>
                 <span className='profile__item__name'>Valid due:</span>
-                <span>{new Date(user.endDateOfPlan).toLocaleDateString()}</span>
+                <span>
+                  {new Date(
+                    user.currentUser.endDateOfPlan
+                  ).toLocaleDateString()}
+                </span>
                 <hr />
               </div>
             )}

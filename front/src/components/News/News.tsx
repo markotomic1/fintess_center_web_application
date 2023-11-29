@@ -1,7 +1,7 @@
 import "./news.scss";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import React, { useEffect } from "react";
-import Button from "../UI/Button/Button";
+import Button from "../Button/Button";
 import Modal from "../Modal/Modal";
 import { openModal } from "@/redux/features/modalSlice";
 import { deleteNewsAction, getNewsAction } from "@/redux/features/newsSlice";
@@ -20,7 +20,7 @@ const News = () => {
         console.error(error);
       }
     })();
-  }, []);
+  }, [dispatch]);
 
   const addNewsHandler = async () => {
     dispatch(openModal({ modalType: "addNews" }));
@@ -43,20 +43,21 @@ const News = () => {
             <div className='news__item' key={newsItem.id}>
               <div className='news__desc__item'>
                 <p>{newsItem.newsDescription}</p>
-                {user.isLoggedIn && user.role === "ADMIN" && (
-                  <Button
-                    class='remove__button'
-                    onClick={() => deleteHandler(newsItem.id)}
-                  >
-                    -
-                  </Button>
-                )}
+                {user.currentUser.isLoggedIn &&
+                  user.currentUser.role === "ADMIN" && (
+                    <Button
+                      class='remove__button'
+                      onClick={() => deleteHandler(newsItem.id)}
+                    >
+                      -
+                    </Button>
+                  )}
               </div>
               <hr />
             </div>
           ))}
         </div>
-        {user.isLoggedIn && user.role === "ADMIN" && (
+        {user.currentUser.isLoggedIn && user.currentUser.role === "ADMIN" && (
           <div className='news__buttons'>
             <Button class='news__button' onClick={addNewsHandler}>
               Add News

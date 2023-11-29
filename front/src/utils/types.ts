@@ -18,6 +18,10 @@ export interface UserState {
   endDateOfPlan: string;
   imgUrl: string;
 }
+export interface UserSlice {
+  users: UserState[];
+  currentUser: UserState;
+}
 export interface UserRegister {
   username: string;
   password: string;

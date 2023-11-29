@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import "./dayCard.scss";
-import Wrapper from "../UI/Wrapper/Wrapper";
-import Button from "../UI/Button/Button";
+import Wrapper from "../Wrapper/Wrapper";
+import Button from "../Button/Button";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Training } from "@/utils/types";
 import { removeTrainingAction } from "@/redux/features/trainingSlice";
@@ -24,7 +24,7 @@ const DayCard = (props: { dayName: string; trainings: Training[] }) => {
             <div className='training__info' key={training.id}>
               <span>{training.trainingName}</span>
               <span>{training.trainingTime}</span>
-              {user.role === "ADMIN" && (
+              {user.currentUser.role === "ADMIN" && (
                 <Button
                   class='remove__button'
                   onClick={() => removeHandler(training.id)}

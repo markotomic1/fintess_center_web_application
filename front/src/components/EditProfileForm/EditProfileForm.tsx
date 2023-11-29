@@ -1,30 +1,26 @@
 import React, { useEffect } from "react";
 import "./editProfileForm.scss";
 import useForm from "@/hooks/useForm";
-import Button from "../UI/Button/Button";
+import Button from "../Button/Button";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { checkError } from "@/utils/checkErrors";
 import { updateUserAction } from "@/redux/features/userSlice";
 import { closeModal } from "@/redux/features/modalSlice";
 const EditProfileForm = () => {
-  const {
-    formData,
-    blurHandler,
-    handleInputChange,
-    resetForm,
-    autoSetFormData,
-  } = useForm({
-    name: "",
-    surname: "",
-    username: "",
-    email: "",
-  });
+  const { formData, blurHandler, handleInputChange, autoSetFormData } = useForm(
+    {
+      name: "",
+      surname: "",
+      username: "",
+      email: "",
+    }
+  );
   const user = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    const { email, name, surname, username } = user;
+    const { email, name, surname, username } = user.currentUser;
     autoSetFormData({ email, name, surname, username });
-  }, []);
+  }, [autoSetFormData, user.currentUser]);
   const { error } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
 
@@ -54,7 +50,7 @@ const EditProfileForm = () => {
             className={`form__input ${
               checkError("usernameError", error) ? "inputError" : ""
             }`}
-            autoComplete={user.username}
+            autoComplete={user.currentUser.username}
           />
           {checkError("usernameError", error) && (
             <span className='error__text'>
@@ -77,7 +73,7 @@ const EditProfileForm = () => {
             className={`form__input ${
               checkError("nameError", error) ? "inputError" : ""
             }`}
-            autoComplete={user.name}
+            autoComplete={user.currentUser.name}
           />
           {checkError("nameError", error) && (
             <span className='error__text'>
@@ -97,7 +93,7 @@ const EditProfileForm = () => {
             className={`form__input ${
               checkError("surnameError", error) ? "inputError" : ""
             }`}
-            autoComplete={user.surname}
+            autoComplete={user.currentUser.surname}
           />
           {checkError("surnameError", error) && (
             <span className='error__text'>
@@ -120,7 +116,7 @@ const EditProfileForm = () => {
             className={`form__input ${
               checkError("emailError", error) ? "inputError" : ""
             }`}
-            autoComplete={user.email}
+            autoComplete={user.currentUser.email}
           />
           {checkError("emailError", error) && (
             <span className='error__text'>

@@ -2,12 +2,11 @@ import React, { useEffect } from "react";
 import "./payment.scss";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
-import Button from "../UI/Button/Button";
+import Button from "../Button/Button";
 import { purchasePlan } from "@/redux/features/userSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 const Payment = () => {
-  const user = useAppSelector((state) => state.user);
   const plan = useAppSelector((state) => state.plan);
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -15,7 +14,7 @@ const Payment = () => {
     if (plan.choosenPlan.planName === "") {
       router.push("/dashboard");
     }
-  }, [plan.choosenPlan.planName]);
+  }, [plan.choosenPlan.planName, router]);
 
   const handleCheckout = async () => {
     try {

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Button from "../UI/Button/Button";
+import Button from "../Button/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./navbar.scss";
@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logoutUser } from "@/redux/features/userSlice";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const Navbar = (props: { type?: string }) => {
   const [showNavbar, setShowNavbar] = useState("hidden");
@@ -40,7 +41,7 @@ const Navbar = (props: { type?: string }) => {
         <Button onClick={toggleNavbar} class='navbar__button'>
           {showNavbar === "visible" ? <CloseIcon /> : <MenuIcon />}
         </Button>
-        {user?.isLoggedIn && (
+        {user?.currentUser.isLoggedIn && (
           <Button class='logout__button' onClick={logoutHandler}>
             Logout
           </Button>
@@ -49,21 +50,27 @@ const Navbar = (props: { type?: string }) => {
 
       <ul className={`navbar__link-list ${showNavbar}`}>
         <li className='list__logo link-list__item'>
-          <img src={logo.src} alt='IgniteFit Logo' className='logo__image' />
+          <Image
+            width={100}
+            height={50}
+            src={logo.src}
+            alt='IgniteFit Logo'
+            className='logo__image'
+          />
         </li>
         <li className='link-list__item'>
           <Link href='/' className='link' onClick={changeUrlHandler}>
             Home
           </Link>
         </li>
-        {user?.isLoggedIn && (
+        {user?.currentUser.isLoggedIn && (
           <li className='link-list__item'>
             <Link href='/dashboard' className='link' onClick={changeUrlHandler}>
               Dashboard
             </Link>
           </li>
         )}
-        {user?.isLoggedIn && (
+        {user?.currentUser.isLoggedIn && (
           <li className='link-list__item'>
             <Link href='/profile' className='link' onClick={changeUrlHandler}>
               Profile
@@ -87,7 +94,7 @@ const Navbar = (props: { type?: string }) => {
         </li>
       </ul>
       <div className='logout__container'>
-        {user?.isLoggedIn && (
+        {user?.currentUser.isLoggedIn && (
           <Button class='logout__button' onClick={logoutHandler}>
             Logout
           </Button>

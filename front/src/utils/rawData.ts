@@ -1,4 +1,4 @@
-export const groupTrainings = ["HIIT", "Zumba", "Yoga", "Pilates"];
+export const groupTrainings = ["HIIT", "Zumba", "Yoga"];
 export const aboutUsData = [
   {
     id: "1",
@@ -23,46 +23,6 @@ export const aboutUsData = [
     title: "Community Support",
     description:
       "At Ignite Fit, you'll be part of a supportive community of like-minded individuals who are on their own fitness journeys. Connect, motivate, and inspire each other as you work towards your goals.",
-  },
-];
-export const plans = [
-  {
-    id: "1",
-    name: "Basic Plan",
-    price: "29.99",
-    desc: [
-      "Access to gym 2 hours a day six days a week",
-      "Locker room and shower facilities",
-    ],
-  },
-  {
-    id: "2",
-    name: "Premium Plan",
-    price: "39.99",
-    desc: [
-      "Access to gym all day seven days a week",
-      "Locker room and shower facilities",
-      "Discount on personal trainers 5%",
-      "Access to track area for running ",
-    ],
-  },
-  {
-    id: "3",
-    name: "VIP Plan",
-    price: "59.99",
-    desc: [
-      "Access to gym all day seven days a week",
-      "Locker room and shower facilities",
-      "Discount on personal trainers 10%",
-      "Access to track area for running",
-      "Nutrition consultation and meal planning",
-    ],
-  },
-  {
-    id: "4",
-    name: "Group Classes",
-    price: "29.99",
-    desc: ["Group classes twice a week with trainer", ...groupTrainings],
   },
 ];
 export const daysInWeek = [

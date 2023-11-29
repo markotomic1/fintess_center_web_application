@@ -2,7 +2,8 @@ import { addError, removeError } from "@/redux/features/uiSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { capitalizeFirstLetter } from "@/utils/stringUtils";
 import { useState } from "react";
-import validator from "validator";
+import isEmail from "validator/lib/isEmail";
+import isMobilePhone from "validator/lib/isMobilePhone";
 type FormState<T> = T;
 
 const useForm = <T,>(initialState: FormState<T> = {} as T) => {
@@ -27,14 +28,14 @@ const useForm = <T,>(initialState: FormState<T> = {} as T) => {
           message: "Field can not be empty!",
         })
       );
-    } else if (name === "email" && !validator.isEmail(value)) {
+    } else if (name === "email" && !isEmail(value)) {
       dispatch(
         addError({
           id: name.toString() + "Error",
           message: "Not valid Email!",
         })
       );
-    } else if (name === "phone" && !validator.isMobilePhone(value)) {
+    } else if (name === "phone" && !isMobilePhone(value)) {
       dispatch(
         addError({
           id: name.toString() + "Error",

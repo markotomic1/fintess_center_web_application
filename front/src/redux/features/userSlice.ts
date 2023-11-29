@@ -1,10 +1,10 @@
 import { axiosInstance } from "@/utils/axiosInstance";
 import {
   ContactData,
-  Plan,
   UpdateUser,
   User,
   UserLogin,
+  UserSlice,
   UserState,
 } from "@/utils/types";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
@@ -33,7 +33,7 @@ export const registerUser = createAsyncThunk(
   "user/register",
   async (user: User, thunkAPI) => {
     try {
-      const { data } = await axiosInstance.post<{
+      await axiosInstance.post<{
         token: string;
         message: string;
       }>("/user/register", user, { withCredentials: true });
@@ -52,7 +52,7 @@ export const loginUser = createAsyncThunk(
   "user/login",
   async (user: UserLogin, thunkAPI) => {
     try {
-      const response = await axiosInstance.post<{
+      await axiosInstance.post<{
         token: string;
         message: string;
       }>("/user/login", user, { withCredentials: true });
@@ -196,44 +196,72 @@ export const uploadImageAction = createAsyncThunk(
     }
   }
 );
+// getAll users
 
-const initialState: UserState = {
-  isLoggedIn: false,
-  username: "",
-  name: "",
-  surname: "",
-  email: "",
-  role: "",
-  planName: "",
-  startDateOfPlan: "",
-  endDateOfPlan: "",
-  imgUrl: "",
+export const getAllUsersAction = createAsyncThunk(
+  "user/getAll",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get("/user/getAll", {
+        withCredentials: true,
+      });
+      thunkAPI.dispatch(setUsers(response.data));
+      console.log(response.data);
+      thunkAPI.dispatch(removeError("getAllUsersError"));
+    } catch (error: any) {
+      thunkAPI.dispatch(
+        addError({ id: "getAllUsersError", message: error.response.data })
+      );
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+const initialState: UserSlice = {
+  users: [],
+  currentUser: {
+    isLoggedIn: false,
+    username: "",
+    name: "",
+    surname: "",
+    email: "",
+    role: "",
+    planName: "",
+    startDateOfPlan: "",
+    endDateOfPlan: "",
+    imgUrl: "",
+  },
 };
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
     login: (state) => {
-      state.isLoggedIn = true;
+      state.currentUser.isLoggedIn = true;
     },
     logout(state) {
-      state.isLoggedIn = false;
+      state.currentUser.isLoggedIn = false;
     },
     setUser(state, action: PayloadAction<UpdateUser>) {
-      return { ...state, ...action.payload };
+      const newUser = { ...state.currentUser, ...action.payload };
+      state.currentUser = { ...newUser };
+    },
+    setUsers(state, action: PayloadAction<UserState[]>) {
+      state.users = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(
       getUser.fulfilled,
       (state, action: PayloadAction<UserState>) => {
-        return { ...state, ...action.payload };
+        const newUser = { ...state.currentUser, ...action.payload };
+        state.currentUser = { ...newUser };
       }
     );
-    builder.addCase(logoutUser.fulfilled, (state) => {
+    builder.addCase(logoutUser.fulfilled, () => {
       return initialState;
     });
   },
 });
 export default userSlice.reducer;
-export const { login, setUser, logout } = userSlice.actions;
+export const { login, setUser, logout, setUsers } = userSlice.actions;

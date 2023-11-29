@@ -1,7 +1,7 @@
 import React from "react";
 import "./addTrainingForm.scss";
 import useForm from "@/hooks/useForm";
-import Button from "../UI/Button/Button";
+import Button from "../Button/Button";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { checkError } from "@/utils/checkErrors";
 import { Training } from "@/utils/types";

@@ -17,7 +17,7 @@ export default function Page() {
       }
     };
     getLoggedInUser();
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <Navbar />

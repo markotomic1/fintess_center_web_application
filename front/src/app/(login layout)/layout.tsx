@@ -1,9 +1,9 @@
 "use client";
-import Wrapper from "@/components/UI/Wrapper/Wrapper";
 import background from "../../../public/images/homeBackground.png";
 import { useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Image from "next/image";
 export default function LoginLayout({
   children,
 }: {
@@ -13,20 +13,20 @@ export default function LoginLayout({
   const router = useRouter();
 
   useEffect(() => {
-    if (user.isLoggedIn) {
+    if (user.currentUser.isLoggedIn) {
       router.push("/dashboard");
     }
-  }, []);
-  return !user.isLoggedIn ? (
+  }, [user.currentUser.isLoggedIn, router]);
+  return !user.currentUser.isLoggedIn ? (
     <>
-      <img
+      <Image
+        fill
+        sizes='100vw'
         className='background__full'
         src={background.src}
         alt='User Login background'
       />
-      <div className='center'>
-        <Wrapper>{children}</Wrapper>
-      </div>
+      <div className='center'>{children}</div>
     </>
   ) : (
     <>Loading...</>

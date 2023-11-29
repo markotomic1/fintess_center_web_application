@@ -176,11 +176,26 @@ export const purchasePlan = async (
     throw new CustomError("Unable to purchase plan!", 400);
   }
 };
+
+//store image url in database
 export const storeImageUrl = async (username: string, imgUrl: string) => {
   try {
     await prisma.user.update({ where: { username }, data: { imgUrl } });
   } catch (error) {
     console.error(error);
     throw new CustomError("Unable to store Url!", 400);
+  }
+};
+
+//get all users
+
+export const getAllUsers = async () => {
+  try {
+    const users = await prisma.user.findMany({
+      where: { role: { in: ["USER", "TRAINER"] } },
+    });
+    return users;
+  } catch (error) {
+    throw new CustomError("Unable to get users!", 400);
   }
 };

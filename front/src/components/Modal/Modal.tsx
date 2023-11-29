@@ -3,8 +3,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./modal.scss";
-import Wrapper from "../UI/Wrapper/Wrapper";
-import Button from "../UI/Button/Button";
+import Wrapper from "../Wrapper/Wrapper";
+import Button from "../Button/Button";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { removeErrors } from "@/redux/features/uiSlice";
 import CloseIcon from "@mui/icons-material/Close";
@@ -16,10 +16,8 @@ import EditProfileForm from "../EditProfileForm/EditProfileForm";
 import PlanList from "../PlanList/PlanList";
 import AddPlanForm from "../AddPlanForm/AddPlanForm";
 const Modal = () => {
-  //const [mounted, setMounted] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
 
-  //useEffect(() => setMounted(true), []);
   const ModalBackdrop = () => {
     const dispatch = useAppDispatch();
     const handleBackdrop = () => {

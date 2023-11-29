@@ -1,8 +1,8 @@
 import React from "react";
-import Wrapper from "../UI/Wrapper/Wrapper";
+import Wrapper from "../Wrapper/Wrapper";
 import "./card.scss";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import Button from "../UI/Button/Button";
+import Button from "../Button/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import { deletePlanAction, setChosenPlan } from "@/redux/features/planSlice";
 import { useRouter } from "next/navigation";
@@ -47,11 +47,12 @@ const Card = (props: {
         className={`card ${props.type === "plan__wrapper" ? "card__list" : ""}`}
         onClick={props.type === "plan__wrapper" ? choosePlanHandler : undefined}
       >
-        {user.role === "ADMIN" && props.type === "plan__wrapper" && (
-          <Button class='plan__delete__button' onClick={deletePlanHandler}>
-            <CloseIcon />
-          </Button>
-        )}
+        {user.currentUser.role === "ADMIN" &&
+          props.type === "plan__wrapper" && (
+            <Button class='plan__delete__button' onClick={deletePlanHandler}>
+              <CloseIcon />
+            </Button>
+          )}
         <h2
           className={`card__title ${
             props.type === "plan__wrapper" ? "card__title__list" : ""

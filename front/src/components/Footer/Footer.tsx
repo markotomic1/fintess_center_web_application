@@ -4,12 +4,19 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import logo from "../../../public/images/ignitefitLogo.png";
+import Image from "next/image";
 const Footer = () => {
   return (
     <footer className='footer'>
       <div className='footer__top'>
         <div className='logo'>
-          <img src={logo.src} alt='Ignite Fit Logo' className='logo__image' />
+          <Image
+            height={50}
+            width={100}
+            src={logo.src}
+            alt='Ignite Fit Logo'
+            className='logo__image'
+          />
         </div>
         <div className='location'>
           <span>Istocno Sarajevo</span>

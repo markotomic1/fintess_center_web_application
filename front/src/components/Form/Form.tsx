@@ -1,16 +1,18 @@
 "use client";
 import React, { useEffect } from "react";
 import "./form.scss";
-import Button from "../UI/Button/Button";
+import Button from "../Button/Button";
 import Link from "next/link";
 import logo from "../../../public/images/ignitefitLogoDark.png";
 import useForm from "@/hooks/useForm";
 import { checkError } from "@/utils/checkErrors";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { addError, removeErrors } from "@/redux/features/uiSlice";
+import { removeErrors } from "@/redux/features/uiSlice";
 import { User } from "../../utils/types";
 import { useRouter } from "next/navigation";
 import { loginUser, registerUser } from "@/redux/features/userSlice";
+import Image from "next/image";
+import Wrapper from "../Wrapper/Wrapper";
 
 const Form = (props: { type: "login" | "register" }) => {
   const { formData, handleInputChange, resetForm, blurHandler } = useForm<User>(
@@ -43,10 +45,16 @@ const Form = (props: { type: "login" | "register" }) => {
   };
 
   return (
-    <>
+    <Wrapper>
       <div className='form__logo'>
         <Link href='/' className='link'>
-          <img src={logo.src} alt='IgniteFit Logo' className='logo__image' />
+          <Image
+            width={100}
+            height={50}
+            src={logo.src}
+            alt='IgniteFit Logo'
+            className='logo__image'
+          />
         </Link>
       </div>
       <form className='form' onSubmit={submitHandler}>
@@ -192,7 +200,7 @@ const Form = (props: { type: "login" | "register" }) => {
           }
         })}
       </div>
-    </>
+    </Wrapper>
   );
 };
 

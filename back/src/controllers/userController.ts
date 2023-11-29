@@ -8,6 +8,7 @@ import {
   getLoggedInUserPlan,
   purchasePlan,
   storeImageUrl,
+  getAllUsers,
 } from "../services/userService";
 import { NextFunction, Request, Response } from "express";
 import { CustomError } from "../utils/customError";
@@ -41,7 +42,6 @@ export const registerUser = async (
     const data = req.body;
 
     const { returnData, token } = await register(data);
-    console.log(token);
 
     res
       .cookie("token", token, { maxAge: 1000 * 60 * 30 * 3, httpOnly: true })
@@ -157,6 +157,19 @@ export const storeImgUrlControl = async (
   try {
     await storeImageUrl(req.user?.username!, req.body.imgUrl);
     res.send("Image url successfully stored!");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllUsersControl = async (
+  req: UserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const users = await getAllUsers();
+    res.send(users);
   } catch (error) {
     next(error);
   }

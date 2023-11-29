@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect } from "react";
 import "./contactForm.scss";
-import Button from "../UI/Button/Button";
+import Button from "../Button/Button";
 import useForm from "@/hooks/useForm";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { checkError } from "@/utils/checkErrors";

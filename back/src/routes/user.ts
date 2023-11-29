@@ -1,6 +1,7 @@
-import { auth } from "../middlewares/auth";
+import { auth, isAdmin } from "../middlewares/auth";
 import {
   changePassword,
+  getAllUsersControl,
   getLoggedInUser,
   getUser,
   loginUser,
@@ -19,6 +20,7 @@ router.post("/register", registerUser);
 router.patch("/changePassword", auth, changePassword);
 router.get("/getUser/:id", auth, getUser);
 router.get("/me", auth, getLoggedInUser);
+router.get("/getAll", auth, isAdmin, getAllUsersControl);
 router.post("/logout", auth, logoutUser);
 router.patch("/", auth, updateUserControl);
 router.patch("/purchasePlan", auth, purchasePlanControl);

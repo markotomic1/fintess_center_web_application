@@ -12,12 +12,8 @@ services:
       - 8080
     ports:
       - 8080:8080
-    volumes:
-      - ./front:/usr/app
-      - /usr/app/node_modules
-      - /usr/app/.next
     environment:
-      - NEXT_PUBLIC_BASE_URL=http://localhost:3000
+      - NEXT_PUBLIC_BASE_SERVER_URL=http://localhost:3000
 
   postgres-database:
     container_name: postgres-db

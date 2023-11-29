@@ -1,7 +1,7 @@
 import useForm from "@/hooks/useForm";
 import React from "react";
 import "./addPlanForm.scss";
-import Button from "../UI/Button/Button";
+import Button from "../Button/Button";
 import { PlanFormData } from "@/utils/types";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addPlanAction } from "@/redux/features/planSlice";
@@ -29,6 +29,7 @@ const AddPlanForm = () => {
         })
       ).unwrap();
       dispatch(closeModal());
+      resetForm();
     } catch (error) {
       console.error(error);
     }

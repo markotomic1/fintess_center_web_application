@@ -16,7 +16,7 @@ const Price = () => {
         console.error(error);
       }
     })();
-  }, []);
+  }, [dispatch]);
   return (
     <div className='price'>
       <div className='header__container'>

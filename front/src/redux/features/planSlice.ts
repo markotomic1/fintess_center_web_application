@@ -54,7 +54,7 @@ export const deletePlanAction = createAsyncThunk(
   "plan/getAll",
   async (id: string, thunkAPI) => {
     try {
-      const response = await axiosInstance.delete("/plan/" + id, {
+      await axiosInstance.delete("/plan/" + id, {
         withCredentials: true,
       });
       thunkAPI.dispatch(removeError("deletePlanError"));
