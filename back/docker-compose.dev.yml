@@ -35,7 +35,9 @@ services:
       - DATABASE_URL=postgresql://admin:admin123@postgres-db:5432/fitness-db?schema=public
       - JWT_TOKEN=somesecretkey
       - GMAIL_MAIL=tomic4385@gmail.com
-      - GMAIL_PASS=ikdp ydqp cfbd qgaf
+      - SUCCESS_URL=http://localhost:8080/success
+      - CANCEL_URL=http://localhost:8080/cancel
+
     expose:
       - 3000
     ports:

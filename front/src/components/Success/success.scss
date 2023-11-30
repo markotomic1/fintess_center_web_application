@@ -1,0 +1,16 @@
+.success {
+  position: absolute;
+  top: 0;
+  z-index: 110;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: white;
+  color: green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.success__title {
+  font-size: 3rem;
+}

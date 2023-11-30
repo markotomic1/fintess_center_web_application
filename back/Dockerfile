@@ -9,6 +9,7 @@ COPY prisma ./prisma/
 RUN npm install
 RUN npx prisma generate
 
+COPY .env /usr/app/.env
 COPY /src /usr/app/src
 
 CMD [ "npm","run","dev" ]

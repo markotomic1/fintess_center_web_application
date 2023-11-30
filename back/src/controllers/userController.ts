@@ -14,6 +14,7 @@ import {
 } from "../services/userService";
 import { NextFunction, Request, Response } from "express";
 import { CustomError } from "../utils/customError";
+import { generateToken } from "../utils/jwtUtils";
 
 export const loginUser = async (
   req: Request,
@@ -28,6 +29,8 @@ export const loginUser = async (
       .cookie("token", token, {
         maxAge: 1000 * 60 * 30 * 3,
         httpOnly: true,
+        sameSite: "none",
+        secure: true,
       })
       .json({ message: "Successfuly logged in!", user: returnData });
   } catch (error) {
@@ -46,7 +49,12 @@ export const registerUser = async (
     const { returnData, token } = await register(data);
 
     res
-      .cookie("token", token, { maxAge: 1000 * 60 * 30 * 3, httpOnly: true })
+      .cookie("token", token, {
+        maxAge: 1000 * 60 * 30 * 3,
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+      })
       .json({ message: "Successfully registered!" });
   } catch (error) {
     next(error);
@@ -79,8 +87,21 @@ export const getLoggedInUser = async (
 
     if (!plan) throw new CustomError("Plan not found!", 400);
 
+    const token = generateToken(req.user.username);
+
+    if (!token) {
+      throw new CustomError("An Error Occured!", 500);
+    }
+
     const { id, ...planData } = plan;
-    res.send({ ...req.user, ...planData });
+    res
+      .cookie("token", token, {
+        maxAge: 1000 * 60 * 30 * 3,
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+      })
+      .send({ ...req.user, ...planData });
   } catch (error) {
     next(error);
   }
@@ -127,7 +148,12 @@ export const updateUserControl = async (
     );
 
     res
-      .cookie("token", token, { httpOnly: true, maxAge: 1000 * 60 * 30 * 3 })
+      .cookie("token", token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 30 * 3,
+        sameSite: "none",
+        secure: true,
+      })
       .send(updatedUser);
   } catch (error) {
     next(error);

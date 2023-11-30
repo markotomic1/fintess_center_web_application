@@ -4,8 +4,10 @@ import mailRoutes from "./routes/mail";
 import trainingRoutes from "./routes/training";
 import newsRoutes from "./routes/news";
 import planRoutes from "./routes/plan";
+import paymentRoutes from "./routes/payment";
 import cors from "cors";
 import winston from "winston";
+import "dotenv/config";
 const app = express();
 
 //winston logger setup
@@ -48,6 +50,7 @@ app.use("/mail", mailRoutes);
 app.use("/training", trainingRoutes);
 app.use("/news", newsRoutes);
 app.use("/plan", planRoutes);
+app.use("/payment", paymentRoutes);
 
 //error middleware
 

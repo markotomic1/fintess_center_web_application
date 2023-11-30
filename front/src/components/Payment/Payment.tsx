@@ -3,13 +3,12 @@ import "./payment.scss";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
-import { purchasePlan } from "@/redux/features/userSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
+import { axiosInstance } from "@/utils/axiosInstance";
 const Payment = () => {
   const plan = useAppSelector((state) => state.plan);
   const router = useRouter();
-  const dispatch = useAppDispatch();
   useEffect(() => {
     if (plan.choosenPlan.planName === "") {
       router.push("/dashboard");
@@ -18,16 +17,19 @@ const Payment = () => {
 
   const handleCheckout = async () => {
     try {
-      const startDate = new Date().toISOString();
-      const endDate = new Date(
-        new Date().getTime() + 30 * 24 * 60 * 60 * 1000
-      ).toISOString();
-
-      await dispatch(
-        purchasePlan({ id: plan.choosenPlan.id!, startDate, endDate })
-      ).unwrap();
-
-      router.push("/profile");
+      const response = await axiosInstance.post(
+        "/payment",
+        {
+          plan: {
+            id: plan.choosenPlan.id,
+            planName: plan.choosenPlan.planName,
+            desc: plan.choosenPlan.planDescription,
+            planPrice: plan.choosenPlan.planPrice,
+          },
+        },
+        { withCredentials: true }
+      );
+      router.push(response.data);
     } catch (error: any) {
       toast.error(error);
       console.error(error);
