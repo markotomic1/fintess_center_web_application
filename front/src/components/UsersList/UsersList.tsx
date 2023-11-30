@@ -8,9 +8,10 @@ import {
   getAllUsersAction,
   setUsersPlanAction,
 } from "@/redux/features/userSlice";
+import { axiosInstance } from "@/utils/axiosInstance";
 
 const UsersList = () => {
-  const [viewPlan, setViewPlan] = useState(false);
+  const [viewPlan, setViewPlan] = useState("string");
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
@@ -45,9 +46,11 @@ const UsersList = () => {
   };
   const handleViewPlan = async (planId: string | undefined) => {
     try {
-      if (planId) {
+      if (planId && viewPlan === "") {
         await dispatch(setUsersPlanAction(planId)).unwrap();
-        setViewPlan(true);
+        setViewPlan(planId);
+      } else {
+        setViewPlan("");
       }
     } catch (error) {
       console.error(error);
@@ -79,10 +82,10 @@ const UsersList = () => {
                 <td>{user.email}</td>
                 <td
                   onMouseEnter={() => handleViewPlan(user.planId)}
-                  onMouseLeave={() => setViewPlan(false)}
+                  onMouseLeave={() => handleViewPlan("")}
                   className='table__plan'
                 >
-                  {viewPlan ? user.planName : user.planId}
+                  {viewPlan === user.planId ? user.planName : user.planId}
                 </td>
                 <td>
                   {user.endDateOfPlan &&
@@ -144,9 +147,9 @@ const UsersList = () => {
                   <h4>Plan:</h4>
                   <span
                     onMouseEnter={() => handleViewPlan(user.planId)}
-                    onMouseLeave={() => setViewPlan(false)}
+                    onMouseLeave={() => setViewPlan("")}
                   >
-                    {viewPlan ? user.planName : user.planId}
+                    {viewPlan === user.planId ? user.planName : user.planId}
                   </span>
                 </div>
                 <div className='user__card__info'>

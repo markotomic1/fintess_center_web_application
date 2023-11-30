@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import { CustomError } from "../utils/customError";
 import validator from "validator";
+import "dotenv/config";
 const transporter = nodemailer.createTransport({
   service: "gmail",
   host: "smtp.gmail.com",
@@ -24,6 +25,7 @@ export const send = async (
       text: `${fullname}\n${phone}\n\n${description}`,
     });
   } catch (error) {
+    console.error(error);
     throw new CustomError("Sending email failed!", 400);
   }
 };

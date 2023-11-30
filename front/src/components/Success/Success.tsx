@@ -25,6 +25,7 @@ const Success = () => {
         await dispatch(
           purchasePlan({ id: response.data, startDate, endDate })
         ).unwrap();
+
         router.push("/dashboard");
       } catch (error) {
         router.push("/cancel");

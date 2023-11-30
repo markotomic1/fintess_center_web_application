@@ -165,6 +165,7 @@ export const purchasePlan = createAsyncThunk(
         },
         { withCredentials: true }
       );
+      await thunkAPI.dispatch(getUser()).unwrap();
       thunkAPI.dispatch(removeError("purchasePlanError"));
     } catch (error: any) {
       thunkAPI.dispatch(

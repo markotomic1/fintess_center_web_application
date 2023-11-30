@@ -20,7 +20,7 @@ const EditProfileForm = () => {
   useEffect(() => {
     const { email, name, surname, username } = user.currentUser;
     autoSetFormData({ email, name, surname, username });
-  }, [autoSetFormData, user.currentUser]);
+  }, []);
   const { error } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
 

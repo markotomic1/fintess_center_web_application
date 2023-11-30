@@ -9,7 +9,6 @@ import { axiosInstance } from "@/utils/axiosInstance";
 const Payment = () => {
   const plan = useAppSelector((state) => state.plan);
   const router = useRouter();
-  console.log(plan);
   useEffect(() => {
     if (plan.choosenPlan.planName === "") {
       router.push("/dashboard");
