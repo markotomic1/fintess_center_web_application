@@ -29,3 +29,12 @@ export const deletePlan = async (id: string) => {
     throw new CustomError("Unable to delete plan!", 500);
   }
 };
+export const getPlan = async (planId: string) => {
+  try {
+    const plan = await prisma.plan.findUnique({ where: { id: planId } });
+    return plan;
+  } catch (error) {
+    console.error(error);
+    throw new CustomError("Unable to get Plan!", 400);
+  }
+};

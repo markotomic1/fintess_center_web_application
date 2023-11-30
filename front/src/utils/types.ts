@@ -17,6 +17,7 @@ export interface UserState {
   startDateOfPlan: string;
   endDateOfPlan: string;
   imgUrl: string;
+  planId: string | undefined;
 }
 export interface UserSlice {
   users: UserState[];

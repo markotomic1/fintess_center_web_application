@@ -13,6 +13,24 @@ const initialState: PlanSlice = {
   },
 };
 
+export const getPlanAction = createAsyncThunk(
+  "plan/get",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axiosInstance.post("/plan/", {
+        withCredentials: true,
+      });
+      thunkAPI.dispatch(removeError("getPlanError"));
+    } catch (error: any) {
+      thunkAPI.dispatch(
+        addError({ id: "getPlanError", message: error.response.data })
+      );
+
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const addPlanAction = createAsyncThunk(
   "plan/add",
   async (data: Plan, thunkAPI) => {
@@ -22,7 +40,6 @@ export const addPlanAction = createAsyncThunk(
       });
       thunkAPI.dispatch(removeError("addPlanError"));
       thunkAPI.dispatch(addPlan(response.data));
-      console.log(response.data);
     } catch (error: any) {
       thunkAPI.dispatch(
         addError({ id: "addPlanError", message: error.response.data })
@@ -36,7 +53,7 @@ export const getPlansAction = createAsyncThunk(
   "plan/getAll",
   async (_, thunkAPI) => {
     try {
-      const response = await axiosInstance.get("/plan/", {
+      const response = await axiosInstance.get("/plan/getAll", {
         withCredentials: true,
       });
       thunkAPI.dispatch(removeError("getPlansError"));

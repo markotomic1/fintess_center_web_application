@@ -1,18 +1,6 @@
 version: "3"
 
 services:
-  front:
-    container_name: front
-    build:
-      context: ./front/
-      dockerfile: Dockerfile
-    networks:
-      - my-network
-    expose:
-      - 8080
-    ports:
-      - 8080:8080
-
   postgres-database:
     container_name: postgres-db
     image: postgres
@@ -34,13 +22,13 @@ services:
   backend:
     container_name: backend
     build:
-      context: ./back/
+      context: .
       dockerfile: Dockerfile
     networks:
       - my-network
     volumes:
-      - ./back/src:/usr/app/src
-      - ./back/nodemon.json:/usr/app/nodemon.json
+      - ./src:/usr/app/src
+      - ./nodemon.json:/usr/app/nodemon.json
     environment:
       - NODE_ENV=development
       - PORT=3000

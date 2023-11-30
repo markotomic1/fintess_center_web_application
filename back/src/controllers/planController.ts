@@ -1,5 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { addPlan, deletePlan, getPlans } from "../services/planService";
+import {
+  addPlan,
+  deletePlan,
+  getPlan,
+  getPlans,
+} from "../services/planService";
+import { CustomError } from "../utils/customError";
 
 export const addPlanControl = async (
   req: Request,
@@ -38,6 +44,21 @@ export const deletePlanControl = async (
   try {
     await deletePlan(req.params.id);
     res.send("Successfully deleted plan!");
+  } catch (error) {
+    next(error);
+  }
+};
+export const getPlanControl = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    if (!req.params.planId) {
+      throw new CustomError("Unable to get plan!", 400);
+    }
+    const plan = await getPlan(req.params.planId);
+    res.send(plan);
   } catch (error) {
     next(error);
   }

@@ -124,3 +124,20 @@ button:hover {
 .plan__delete__button:hover {
   color: rgb(255, 107, 107);
 }
+.remove__user__button {
+  color: red;
+  background-color: transparent;
+  font-size: 20px;
+  @media screen and (min-width: 1049px) {
+    font-size: 14px;
+  }
+}
+.change__button {
+  color: blue;
+  background-color: transparent;
+  font-size: 20px;
+
+  @media screen and (min-width: 1049px) {
+    font-size: 14px;
+  }
+}

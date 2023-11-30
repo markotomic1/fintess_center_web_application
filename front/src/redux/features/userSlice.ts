@@ -1,6 +1,7 @@
 import { axiosInstance } from "@/utils/axiosInstance";
 import {
   ContactData,
+  Plan,
   UpdateUser,
   User,
   UserLogin,
@@ -206,11 +207,67 @@ export const getAllUsersAction = createAsyncThunk(
         withCredentials: true,
       });
       thunkAPI.dispatch(setUsers(response.data));
-      console.log(response.data);
       thunkAPI.dispatch(removeError("getAllUsersError"));
     } catch (error: any) {
       thunkAPI.dispatch(
         addError({ id: "getAllUsersError", message: error.response.data })
+      );
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+export const deleteUserAction = createAsyncThunk(
+  "user/delete",
+  async (username: string, thunkAPI) => {
+    try {
+      await axiosInstance.delete("/user/" + username, {
+        withCredentials: true,
+      });
+      thunkAPI.dispatch(getAllUsersAction());
+      thunkAPI.dispatch(removeError("deleteUserError"));
+    } catch (error: any) {
+      thunkAPI.dispatch(
+        addError({ id: "deleteUserError", message: error.response.data })
+      );
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+export const changeUserRoleAction = createAsyncThunk(
+  "user/changeRole",
+  async (data: { username: string; newRole: "USER" | "TRAINER" }, thunkAPI) => {
+    try {
+      await axiosInstance.patch(
+        "/user/changeRole",
+        { username: data.username, newRole: data.newRole },
+        {
+          withCredentials: true,
+        }
+      );
+      thunkAPI.dispatch(getAllUsersAction());
+      thunkAPI.dispatch(removeError("changeUserRoleError"));
+    } catch (error: any) {
+      thunkAPI.dispatch(
+        addError({ id: "changeUserRoleError", message: error.response.data })
+      );
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+export const setUsersPlanAction = createAsyncThunk(
+  "user/setPlan",
+  async (planId: string, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get("/plan/" + planId, {
+        withCredentials: true,
+      });
+
+      thunkAPI.dispatch(removeError("setUserPlanError"));
+
+      return response.data;
+    } catch (error: any) {
+      thunkAPI.dispatch(
+        addError({ id: "setUserPlanError", message: error.response.data })
       );
       throw thunkAPI.rejectWithValue(error.response.data);
     }
@@ -230,6 +287,7 @@ const initialState: UserSlice = {
     startDateOfPlan: "",
     endDateOfPlan: "",
     imgUrl: "",
+    planId: "",
   },
 };
 const userSlice = createSlice({
@@ -250,6 +308,7 @@ const userSlice = createSlice({
       state.users = action.payload;
     },
   },
+
   extraReducers: (builder) => {
     builder.addCase(
       getUser.fulfilled,
@@ -261,6 +320,19 @@ const userSlice = createSlice({
     builder.addCase(logoutUser.fulfilled, () => {
       return initialState;
     });
+    builder.addCase(
+      setUsersPlanAction.fulfilled,
+      (state, action: PayloadAction<Plan>) => {
+        const newUsers = state.users.slice();
+        for (let index = 0; index < newUsers.length; index++) {
+          const user = newUsers[index];
+          if (user.planId === action.payload.id) {
+            user.planName = action.payload.planName;
+          }
+        }
+        state.users = newUsers;
+      }
+    );
   },
 });
 export default userSlice.reducer;

@@ -1,6 +1,8 @@
 import { auth, isAdmin } from "../middlewares/auth";
 import {
   changePassword,
+  changeUserRoleControl,
+  deleteUserControl,
   getAllUsersControl,
   getLoggedInUser,
   getUser,
@@ -25,5 +27,7 @@ router.post("/logout", auth, logoutUser);
 router.patch("/", auth, updateUserControl);
 router.patch("/purchasePlan", auth, purchasePlanControl);
 router.patch("/storeImg", auth, storeImgUrlControl);
+router.patch("/changeRole", auth, isAdmin, changeUserRoleControl);
+router.delete("/:username", auth, isAdmin, deleteUserControl);
 
 export default router;

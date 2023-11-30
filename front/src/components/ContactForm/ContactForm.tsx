@@ -130,7 +130,7 @@ const ContactForm = () => {
           )}
         </div>
         <Button
-          class={`submit__button ${error.length > 0 ? "button--disabled" : ""}`}
+          class={`submit__button`}
           type='submit'
           disable={error.length > 0}
         >

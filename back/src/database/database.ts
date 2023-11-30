@@ -24,6 +24,11 @@ export const prisma = new PrismaClient().$extends({
         });
         return user;
       },
+      async getallUsers() {
+        const users = await prisma.user.findMany({
+          where: { role: { in: ["TRAINER", "USER"] } },
+        });
+      },
     },
   },
 });

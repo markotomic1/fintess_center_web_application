@@ -10,7 +10,7 @@ import { getTrainings } from "@/redux/features/trainingSlice";
 import Button from "../Button/Button";
 import { openModal } from "@/redux/features/modalSlice";
 import News from "../News/News";
-import UsersTable from "../UsersTable/UsersTable";
+import UsersList from "../UsersList/UsersList";
 const Dashboard = () => {
   const modal = useAppSelector((state) => state.modal);
   const traning = useAppSelector((state) => state.training);
@@ -78,8 +78,8 @@ const Dashboard = () => {
               );
             })}
           </div>
+          {user.currentUser.role === "ADMIN" && <UsersList />}
         </div>
-        {user.currentUser.role === "ADMIN" && <UsersTable />}
       </div>
     </>
   );

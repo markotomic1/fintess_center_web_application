@@ -9,6 +9,8 @@ import {
   purchasePlan,
   storeImageUrl,
   getAllUsers,
+  deleteUser,
+  changeUserRole,
 } from "../services/userService";
 import { NextFunction, Request, Response } from "express";
 import { CustomError } from "../utils/customError";
@@ -170,6 +172,36 @@ export const getAllUsersControl = async (
   try {
     const users = await getAllUsers();
     res.send(users);
+  } catch (error) {
+    next(error);
+  }
+};
+export const deleteUserControl = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    if (!req.params.username) {
+      throw new CustomError("Unable to delete user!", 400);
+    }
+    await deleteUser(req.params.username);
+    res.send("Succesfully deleted");
+  } catch (error) {
+    next(error);
+  }
+};
+export const changeUserRoleControl = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    if (req.body.newRole !== "USER" && req.body.newRole !== "TRAINER") {
+      throw new CustomError("Forbidden role!", 403);
+    }
+    await changeUserRole(req.body.username, req.body.newRole);
+    res.send("Role changed!");
   } catch (error) {
     next(error);
   }

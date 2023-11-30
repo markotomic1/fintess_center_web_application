@@ -1,0 +1,94 @@
+@import "../../styles/constants.scss";
+
+.users__all {
+  margin: 50px auto;
+}
+.usersTable {
+  box-sizing: border-box;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 50px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  overflow: hidden;
+
+  @media screen and (max-width: 1048px) {
+    display: none;
+  }
+}
+th {
+  background-color: $profile__button-back;
+  color: black;
+}
+
+td,
+th {
+  padding: 10px 15px;
+  text-align: center;
+}
+
+tr:nth-child(2n) {
+  background-color: lightgray;
+}
+tr:nth-child(2n + 1) {
+  background-color: whitesmoke;
+}
+.table--buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.table__plan {
+  width: 300px;
+}
+.table__plan:hover {
+  cursor: pointer;
+}
+.usersList__cards {
+  width: 100%;
+  margin-bottom: 50px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 50px;
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media screen and (min-width: 1049px) {
+    display: none;
+  }
+}
+.user__card {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  box-shadow: $box-shadow;
+
+  @media screen and (min-width: 500px) {
+    width: 80%;
+  }
+}
+.user__card__desc {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.user__card__item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.user__card__info {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+.user__card__item__right {
+  text-align: right;
+}

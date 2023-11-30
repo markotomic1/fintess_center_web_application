@@ -199,3 +199,23 @@ export const getAllUsers = async () => {
     throw new CustomError("Unable to get users!", 400);
   }
 };
+
+export const deleteUser = async (username: string) => {
+  try {
+    await prisma.user.delete({ where: { username } });
+  } catch (error) {
+    console.error(error);
+    throw new CustomError("Unable to delete user!", 400);
+  }
+};
+export const changeUserRole = async (
+  username: string,
+  newRole: "USER" | "TRAINER"
+) => {
+  try {
+    await prisma.user.update({ where: { username }, data: { role: newRole } });
+  } catch (error) {
+    console.error(error);
+    throw new CustomError("Unable to change role!", 400);
+  }
+};
