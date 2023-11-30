@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./payment.scss";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
 import { ToastContainer, toast } from "react-toastify";
@@ -9,6 +9,7 @@ import { axiosInstance } from "@/utils/axiosInstance";
 const Payment = () => {
   const plan = useAppSelector((state) => state.plan);
   const router = useRouter();
+  console.log(plan);
   useEffect(() => {
     if (plan.choosenPlan.planName === "") {
       router.push("/dashboard");
@@ -69,8 +70,7 @@ const Payment = () => {
         </div>
       </div>
       <div className='payment__card__container'>
-        <div className='pyment__card__details'></div>
-        <Button class='submit__button' onClick={handleCheckout}>
+        <Button class='submit__button payment__button' onClick={handleCheckout}>
           Checkout
         </Button>
       </div>

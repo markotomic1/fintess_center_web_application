@@ -46,6 +46,7 @@ const Card = (props: {
       <div
         className={`card ${props.type === "plan__wrapper" ? "card__list" : ""}`}
         onClick={props.type === "plan__wrapper" ? choosePlanHandler : undefined}
+        id={props.id}
       >
         {user.currentUser.role === "ADMIN" &&
           props.type === "plan__wrapper" && (

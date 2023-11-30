@@ -1,5 +1,5 @@
 "use client";
-import { purchasePlan } from "@/redux/features/userSlice";
+import { getUser, purchasePlan } from "@/redux/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import React, { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -9,7 +9,6 @@ const Success = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const user = useAppSelector((state) => state.user);
   useEffect(() => {
     const request = async () => {
       try {
@@ -17,10 +16,16 @@ const Success = () => {
         const endDate = new Date(
           new Date().getTime() + 30 * 24 * 60 * 60 * 1000
         ).toISOString();
+
+        const response = await axiosInstance.post(
+          "/payment/verifySession",
+          { session_id },
+          { withCredentials: true }
+        );
         await dispatch(
-          purchasePlan({ id: user.currentUser.planId!, startDate, endDate })
+          purchasePlan({ id: response.data, startDate, endDate })
         ).unwrap();
-        router.push("/profile");
+        router.push("/dashboard");
       } catch (error) {
         router.push("/cancel");
         console.error(error);
@@ -28,18 +33,6 @@ const Success = () => {
     };
     const session_id = searchParams.get("session_id");
     if (session_id) {
-      (async () => {
-        try {
-          await axiosInstance.post(
-            "/payment/verifySession",
-            { session_id },
-            { withCredentials: true }
-          );
-        } catch (error) {
-          router.push("/cancel");
-          console.error(error);
-        }
-      })();
       request();
     } else {
       router.push("/cancel");

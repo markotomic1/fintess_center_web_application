@@ -141,3 +141,9 @@ button:hover {
     font-size: 14px;
   }
 }
+.payment__button {
+  @media screen and (min-width: 768px) {
+    font-size: 26px;
+    padding: 20px 50px;
+  }
+}

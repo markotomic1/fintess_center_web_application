@@ -126,7 +126,9 @@ export const logoutUser = async (
   next: NextFunction
 ) => {
   try {
-    res.clearCookie("token").send("Successfully logged out");
+    res
+      .clearCookie("token", { httpOnly: true, sameSite: "none", secure: true })
+      .send("Successfully logged out");
   } catch (error) {
     next(error);
   }

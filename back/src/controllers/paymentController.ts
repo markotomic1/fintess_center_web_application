@@ -23,7 +23,8 @@ export const verifySessionControl = async (
   next: NextFunction
 ) => {
   try {
-    await verifySession(req.body.session_id);
+    const productId = await verifySession(req.body.session_id);
+    res.send(productId);
   } catch (error) {
     next(error);
   }

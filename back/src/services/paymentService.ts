@@ -14,6 +14,7 @@ export const payment = async (plan: {
       mode: "payment",
       success_url: `${process.env.SUCCESS_URL}?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: process.env.CANCEL_URL,
+      metadata: { product_id: plan.id },
       line_items: [
         {
           price_data: {
@@ -42,6 +43,10 @@ export const verifySession = async (session_id: string) => {
     if (session.payment_status !== "paid") {
       throw new CustomError("Session not valid", 400);
     }
+    if (!session.metadata) {
+      throw new CustomError("An error occured", 500);
+    }
+    return session.metadata.product_id;
   } catch (error) {
     console.error(error);
     throw new CustomError("Session not valid!", 400);
