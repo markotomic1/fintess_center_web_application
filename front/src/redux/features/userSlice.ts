@@ -244,7 +244,7 @@ export const changeUserRoleAction = createAsyncThunk(
           withCredentials: true,
         }
       );
-      thunkAPI.dispatch(getAllUsersAction());
+      await thunkAPI.dispatch(getAllUsersAction());
       thunkAPI.dispatch(removeError("changeUserRoleError"));
     } catch (error: any) {
       thunkAPI.dispatch(
