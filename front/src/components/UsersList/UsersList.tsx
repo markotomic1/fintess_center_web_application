@@ -8,10 +8,9 @@ import {
   getAllUsersAction,
   setUsersPlanAction,
 } from "@/redux/features/userSlice";
-import { axiosInstance } from "@/utils/axiosInstance";
 
 const UsersList = () => {
-  const [viewPlan, setViewPlan] = useState("string");
+  const [viewPlan, setViewPlan] = useState({ username: "", plan: "" });
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
@@ -44,13 +43,16 @@ const UsersList = () => {
       console.error(error);
     }
   };
-  const handleViewPlan = async (planId: string | undefined) => {
+  const handleViewPlan = async (
+    planId: string | undefined,
+    username: string
+  ) => {
     try {
-      if (planId && viewPlan === "") {
+      if (planId && viewPlan.plan === "") {
         await dispatch(setUsersPlanAction(planId)).unwrap();
-        setViewPlan(planId);
+        setViewPlan({ username, plan: planId });
       } else {
-        setViewPlan("");
+        setViewPlan({ username: "", plan: "" });
       }
     } catch (error) {
       console.error(error);
@@ -81,11 +83,16 @@ const UsersList = () => {
                 <td>{user.username}</td>
                 <td>{user.email}</td>
                 <td
-                  onMouseEnter={() => handleViewPlan(user.planId)}
-                  onMouseLeave={() => handleViewPlan("")}
+                  onMouseEnter={() =>
+                    handleViewPlan(user.planId, user.username)
+                  }
+                  onMouseLeave={() => setViewPlan({ username: "", plan: "" })}
                   className='table__plan'
                 >
-                  {viewPlan === user.planId ? user.planName : user.planId}
+                  {viewPlan.plan === user.planId &&
+                  viewPlan.username === user.username
+                    ? user.planName
+                    : user.planId}
                 </td>
                 <td>
                   {user.endDateOfPlan &&
@@ -146,10 +153,15 @@ const UsersList = () => {
                 <div className='user__card__item'>
                   <h4>Plan:</h4>
                   <span
-                    onMouseEnter={() => handleViewPlan(user.planId)}
-                    onMouseLeave={() => setViewPlan("")}
+                    onMouseEnter={() =>
+                      handleViewPlan(user.planId, user.username)
+                    }
+                    onMouseLeave={() => setViewPlan({ username: "", plan: "" })}
                   >
-                    {viewPlan === user.planId ? user.planName : user.planId}
+                    {viewPlan.plan === user.planId &&
+                    viewPlan.username === user.username
+                      ? user.planName
+                      : user.planId}
                   </span>
                 </div>
                 <div className='user__card__info'>
