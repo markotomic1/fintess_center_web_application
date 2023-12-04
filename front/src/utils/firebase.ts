@@ -76,7 +76,6 @@ export const uploadFile = (
     () => {
       // Upload completed successfully, now we can get the download URL
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        console.log("File available at", downloadURL);
         setImgUrl(downloadURL);
         setImg(null);
       });
